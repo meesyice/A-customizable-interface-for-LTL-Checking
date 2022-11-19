@@ -3,8 +3,13 @@ from app import app
 from app.tests.data.download import get_data
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1 and str(sys.argv[1]) == '--debug':
+    host , debug, port = 'localhost', False, 8000
+    if '--host' in sys.argv:
+        host = sys.argv[sys.argv.index('--host') + 1]
+    if '--debug' in sys.argv:
+        debug = True
+    if '--port' in sys.argv:
+        port = int(sys.argv[sys.argv.index('--port') + 1])
+    if '--download' in sys.argv:
         get_data()
-        app.run(host='localhost', debug=True, port=8000)
-    else:
-        app.run(host='localhost', debug=False, port=8000)
+    app.run(host=host, debug=debug, port=port)
