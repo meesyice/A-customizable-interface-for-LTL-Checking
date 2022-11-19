@@ -130,3 +130,6 @@ dmypy.json
 
 # system file in MacOS
 .DS_Store
+
+# log files
+*.xes
