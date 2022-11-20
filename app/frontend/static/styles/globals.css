@@ -2,7 +2,7 @@ html, body {
   margin: 0;
   padding: 0;
   min-width: 550px;
-  background-color: antiquewhite;
+  background-color: hsl(34, 78%, 91%);
   text-align: center;
 }
 
@@ -13,12 +13,12 @@ header {
 }
 
 header h1{
-  color: wheat;
+  color: hsl(34, 78%, 85%);
 }
 
 
 
-.button {
+.file {
   color: #fff;
   font-family: 'Raleway', sans-serif;
   font-weight: 600;
@@ -26,19 +26,44 @@ header h1{
   letter-spacing: 1.3px;
   padding: 16px 40px;
   display: block;
-	margin: 2em;
 	padding: 2em;
 	border: 1px dotted;
   color: #000;
+  max-width: 600px;
+  margin: 20px auto;
+  background-color: hsl(34, 78%, 89%);
 }
+
 
 .filters{
+  background-color: hsl(34, 78%, 89%);
+  margin: 70px auto;
   text-align: left;
-  margin-left: 15%;
+  width: 510px;
+  
+  padding: 10px 10px;
+}
+
+.filters h3{
+  
+  margin: 0px auto;
+}
+
+label:hover{
+  color: hsl(34, 83%, 47%);
 }
 
 
+.boton{
+  padding: 10px 40px;
+  background-color: hsl(34, 78%, 87%);
+}
 
+.boton:hover{
+  color:hsl(34, 78%, 87%);
+  background-color: #333;
+
+}
 footer {
   background-color: #333;
   color: #fff;
