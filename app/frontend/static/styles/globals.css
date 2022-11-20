@@ -4,16 +4,19 @@ html, body {
   min-width: 550px;
   background-color: hsl(34, 78%, 91%);
   text-align: center;
+  min-height: 700px;
 }
 
 header {
   background-color: #333333; 
   padding: 2px;
   width: 100%;
+  margin-bottom: 10%;
 }
 
 header h1{
   color: hsl(34, 78%, 85%);
+  letter-spacing: 15px;
 }
 
 
@@ -38,7 +41,7 @@ header h1{
 .filters{
   background-color: hsl(34, 78%, 89%);
   margin: 70px auto;
-  text-align: left;
+  text-align: justify;
   width: 510px;
   
   padding: 10px 10px;
