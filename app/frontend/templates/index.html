@@ -13,60 +13,60 @@
         <script src="../static/javascript/main.js" ></script>
     </head>
     <body> 
-      <header>
-          <h1>LTL Checker</h1>
-      </header>
-  
-      <main>
+    <header>
+        <h1>LTL Checker</h1>
+    </header>
+
+    <main>
+      
+      <form method="post" enctype="multipart/form-data">
+        <section class="file">
+
+          <label for="myfile">Drop file here or</label>
+          <input required id="myfile"  name="datei" type="file" size="50" accept="text/*"> 
         
-        <form method="post" enctype="multipart/form-data">
-          <section class="file">
-  
-            <label for="myfile">Drop file here or</label>
-            <input required id="myfile"  name="datei" type="file" size="50" accept="text/*"> 
+        </section>
+        <div id="s">
+          <section class="filters">
+            <h3>Select LTL rules:</h3>
+            
+            <input id="1" type="checkbox" name="LTL_rule" value="ltl_checker.A_eventually_B(log, A, B)">
+            <label for="1">ltl_checker.A_eventually_B(log, A, B)</label>
+            <br> 
+            <input id="2" type="checkbox" name="LTL_rule" value="ltl_checker.A_eventually_B_eventually_C(log, A, B, C)">
+            <label for="2">ltl_checker.A_eventually_B_eventually_C(log, A, B, C)</label>
+            <br>  
+            <input id="3" type="checkbox" name="LTL_rule" value="ltl_checker.A_eventually_B_eventually_C_eventually_D(log, A, B, C, D)"> 
+            <label for="3">ltl_checker.A_eventually_B_eventually_C_eventually_D(log, A, B, C, D)</label>
+            <br>
+            <input id="4" type="checkbox" name="LTL_rule" value="ltl_checker.A_next_B_next_C(log, A, B, C)">
+            <label for="4">ltl_checker.A_next_B_next_C(log, A, B, C)</label>
+            <br> 
+            <input id="5" type="checkbox" name="LTL_rule" value="ltl_checker.four_eyes_principle(log, A, B)">
+            <label for="5">ltl_checker.four_eyes_principle(log, A, B)</label>
+            <br> 
+            <input id="6" type="checkbox" name="LTL_rule" value="ltl_checker.attr_value_different_persons(log, A)">
+            <label for="6">ltl_checker.attr_value_different_persons(log, A)</label> 
+            <br>
+              
           
           </section>
-          <div id="s">
-            <section class="filters">
-              <h3>Select LTL rules:</h3>
-              
-              <input id="1" type="checkbox" name="LTL_rule" value="ltl_checker.A_eventually_B(log, A, B)">
-              <label for="1">ltl_checker.A_eventually_B(log, A, B)</label>
-              <br> 
-              <input id="2" type="checkbox" name="LTL_rule" value="ltl_checker.A_eventually_B_eventually_C(log, A, B, C)">
-              <label for="2">ltl_checker.A_eventually_B_eventually_C(log, A, B, C)</label>
-              <br>  
-              <input id="3" type="checkbox" name="LTL_rule" value="ltl_checker.A_eventually_B_eventually_C_eventually_D(log, A, B, C, D)"> 
-              <label for="3">ltl_checker.A_eventually_B_eventually_C_eventually_D(log, A, B, C, D)</label>
-              <br>
-              <input id="4" type="checkbox" name="LTL_rule" value="ltl_checker.A_next_B_next_C(log, A, B, C)">
-              <label for="4">ltl_checker.A_next_B_next_C(log, A, B, C)</label>
-              <br> 
-              <input id="5" type="checkbox" name="LTL_rule" value="ltl_checker.four_eyes_principle(log, A, B)">
-              <label for="5">ltl_checker.four_eyes_principle(log, A, B)</label>
-              <br> 
-              <input id="6" type="checkbox" name="LTL_rule" value="ltl_checker.attr_value_different_persons(log, A)">
-              <label for="6">ltl_checker.attr_value_different_persons(log, A)</label> 
-              <br>
-                
-            
-            </section>
-          </div>
-          <br>
-          <input class="boton" type="submit" value="Start">
-        </form>   
-           
-          
-        
-      </main>
-  
-   
-  
-      <footer>
-        <div class="container">
-          <p>&copy; Grupe_1 2022</p>
         </div>
-      </footer>
+        <br>
+        <input class="boton" type="submit" value="Start">
+      </form>   
+         
+        
       
-    </body>
+    </main>
+
+ 
+
+    <footer>
+      <div class="container">
+        <p>&copy; Grupe_1 2022</p>
+      </div>
+    </footer>
+    
+  </body>
 </html>
