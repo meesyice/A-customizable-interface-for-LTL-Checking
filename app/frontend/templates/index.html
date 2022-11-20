@@ -9,23 +9,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="../static/images/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="../static/styles/globals.css" />
+        <link href='https://fonts.googleapis.com/css?family=Raleway:400, 600' rel='stylesheet' type='text/css'>
         <script src="../static/javascript/main.js" ></script>
     </head>
     <body> 
-        <header>
-            <h1>LTL Checker</h1>
-        </header>
-    
-        <main>
+      <header>
+          <h1>LTL Checker</h1>
+      </header>
+  
+      <main>
+        
+        <form method="post" enctype="multipart/form-data">
+          <section class="file">
+  
+            <label for="myfile">Drop file here or</label>
+            <input required id="myfile"  name="datei" type="file" size="50" accept="text/*"> 
           
-          <form method="post" enctype="multipart/form-data">
-            <section class="button">
-    
-              <label for="myfile">Drop file here or</label>
-              <input required id="myfile"  name="datei" type="file" size="50" accept="text/*"> 
-            
-            </section>
-            
+          </section>
+          <div id="s">
             <section class="filters">
               <h3>Select LTL rules:</h3>
               
@@ -46,21 +47,26 @@
               <br> 
               <input id="6" type="checkbox" name="LTL_rule" value="ltl_checker.attr_value_different_persons(log, A)">
               <label for="6">ltl_checker.attr_value_different_persons(log, A)</label> 
-              <br>  
-              
-            </section>
-            <br>
-            <input type="submit" value="Start">
-          </form>   
-             
+              <br>
+                
             
+            </section>
+          </div>
+          <br>
+          <input class="boton" type="submit" value="Start">
+        </form>   
+           
           
-        </main>
-        <footer>
-            <div class="container">
-              <p>&copy; Grupe_1 2022</p>
-            </div>
-          </footer>
-          
+        
+      </main>
+  
+   
+  
+      <footer>
+        <div class="container">
+          <p>&copy; Grupe_1 2022</p>
+        </div>
+      </footer>
+      
     </body>
 </html>
