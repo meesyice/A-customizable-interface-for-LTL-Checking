@@ -8,6 +8,7 @@ html, body {
 }
 
 header {
+  font-family: 'Courier New', Courier, monospace;
   background-color: #333333; 
   padding: 2px;
   width: 100%;
@@ -38,6 +39,7 @@ header h1{
 }
 
 
+
 .filters{
   background-color: hsl(34, 78%, 89%);
   margin: 70px auto;
@@ -63,10 +65,39 @@ label:hover{
 }
 
 .boton:hover{
-  color:hsl(34, 78%, 87%);
+  color:hsl(33, 95%, 51%);
   background-color: #333;
 
 }
+.hovertext {
+  position: relative;
+  border-bottom: 1px dotted black;
+}
+
+.hovertext:before {
+  content: attr(data-hover);
+  visibility: hidden;
+  opacity: 0;
+  min-width: 350px;
+  max-width: 450px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 5px;
+  transition: opacity 1s ease-in-out;
+
+  position: absolute;
+  z-index: 1;
+  left: 200px;
+  top: 110%;
+}
+
+.hovertext:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+
 footer {
   background-color: #333;
   color: #fff;
