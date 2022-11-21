@@ -4,7 +4,7 @@ from os.path import exists
 """
 Load the data sources from the json file
 """
-with open('app/tests/data/data_sources.json') as json_file:
+with open('tests/data/data_sources.json') as json_file:
     data_urls = json.load(json_file)['data_urls']
 
 """
