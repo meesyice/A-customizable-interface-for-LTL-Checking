@@ -13,7 +13,7 @@ def index():
 def upload():
     file = request.files['datei']
     file_type = os.path.splitext(file.filename)[1]
-    if file_type not in app.config['ALLOWED_FILE_TYPE']:
+    if file_type.lower() not in app.config['ALLOWED_FILE_TYPE']:
         flash("Please upload a XES file")
     else:
         file.save(os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename(file.filename)))
