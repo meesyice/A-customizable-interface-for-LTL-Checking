@@ -6,7 +6,8 @@ import os
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    files = os.listdir(app.config['UPLOAD_DIRECTORY'])
+    return render_template('index.html', files = files)
 
 @app.route('/upload', methods=['POST'])
 def upload():

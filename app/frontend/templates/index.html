@@ -24,7 +24,11 @@
   
             <label for="myfile">Drop file here or</label>
             <input required id="myfile"  name="datei" type="file" size="50" accept=".xes"> 
-          
+            <div class='uploaded_file'>
+                {% for file in files %}
+                <a href="../app/import_files/{{ file }}" target="_blank">{{ file }}</a> 
+                {% endfor %}
+            </div>
           </section>
           <div id="s">
             <section class="filters">
