@@ -1,15 +1,17 @@
-import sys
+import argparse
 from app import app
 from tests.data.download import get_data
 
-if __name__ == '__main__':
-    host , debug, port = 'localhost', False, 8000
-    if '--host' in sys.argv:
-        host = sys.argv[sys.argv.index('--host') + 1]
-    if '--debug' in sys.argv:
-        debug = True
-    if '--port' in sys.argv:
-        port = int(sys.argv[sys.argv.index('--port') + 1])
-    if '--download' in sys.argv:
+if '__main__' == __name__:
+    parser = argparse.ArgumentParser(description='Run the app')
+    parser.add_argument('--version', action='version', version='LTL Checker 0.0.1', help='Print the version number and exit')
+    parser.add_argument('--host', default='localhost', help='Host to run the app on', type=str)
+    parser.add_argument('--port', default=8000, help='Port to run the app on', type=int)
+    parser.add_argument('--debug', default=False, help='Run the app in debug mode', action='store_true')
+    parser.add_argument('--download', default=False, help='Download test data', action='store_true')
+    args = parser.parse_args()
+    
+    if args.download:
         get_data()
-    app.run(host=host, debug=debug, port=port)
+    
+    app.run(host=args.host, debug=args.debug, port=args.port)
