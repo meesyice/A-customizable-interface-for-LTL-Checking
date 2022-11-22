@@ -11,6 +11,5 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['datei']
-    print(file)
-    file.save(os.path.join('app/import_files/', secure_filename(file.filename)))
+    file.save(os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename(file.filename)))
     return redirect('/index')
