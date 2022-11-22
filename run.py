@@ -1,6 +1,6 @@
 import sys
 from app import app
-from app.tests.data.download import get_data
+from tests.data.download import get_data
 
 if __name__ == '__main__':
     host , debug, port = 'localhost', False, 8000
