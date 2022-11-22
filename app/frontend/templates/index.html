@@ -18,6 +18,15 @@
       </header>
   
       <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flash">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
         
         <form action="/upload" method="post" enctype="multipart/form-data">
           <section class="file">
