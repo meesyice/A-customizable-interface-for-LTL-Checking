@@ -23,3 +23,9 @@ def upload():
 def delete(file):
     os.unlink(os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename(file)))
     return redirect('/index')
+
+@app.route('/<path:path>')
+def content(path):
+    with open(path, "r") as f: 
+        content = f.read() 
+        return render_template("content.html", content=content) 
