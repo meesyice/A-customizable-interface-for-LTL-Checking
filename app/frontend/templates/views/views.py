@@ -14,3 +14,8 @@ def upload():
     file = request.files['datei']
     file.save(os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename(file.filename)))
     return redirect('/index')
+
+@app.route('/delete/<file>', methods=['POST','GET'])
+def delete(file):
+    os.unlink(os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename(file)))
+    return redirect('/index')

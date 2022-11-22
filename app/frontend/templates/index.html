@@ -24,9 +24,12 @@
   
             <label for="myfile">Drop file here or</label>
             <input required id="myfile"  name="datei" type="file" size="50" accept=".xes"> 
-            <div class='uploaded_file'>
+            <div class='uploaded_files'>
                 {% for file in files %}
-                <a href="../app/import_files/{{ file }}" target="_blank">{{ file }}</a> 
+                <input type='radio' name='uploaded_file' value={{ file }}/>
+                <a href='../app/import_files/{{ file }}' target='_blank'>{{ file }}</a> 
+                <a href='/delete/{{ file }}' class='delete btn'><input type='button' value='delete'></a>
+                <br />
                 {% endfor %}
             </div>
           </section>
