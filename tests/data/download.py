@@ -21,6 +21,6 @@ def get_data():
             except requests.exceptions.Timeout:
                 print('request timed out skipping...')
                 continue
-            with open('app/tests/data/' + data_url.split('/')[-1], 'wb') as f:
+            with open('tests/data/' + data_url.split('/')[-1], 'wb') as f:
                 f.write(response.content)
         

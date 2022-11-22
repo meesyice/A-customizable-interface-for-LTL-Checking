@@ -1,4 +1,4 @@
-import argparse
+import argparse, threading, time
 from app import app
 from tests.data.download import get_data
 
@@ -12,6 +12,17 @@ if '__main__' == __name__:
     args = parser.parse_args()
     
     if args.download:
-        get_data()
+        thread = threading.Thread(target=get_data)
+        thread.start()
+
+        eli_count = 0
+        spinner = ['|', '/', '-', '\\']
+        
+        while thread.is_alive():
+            print(f"{spinner[eli_count]} Loading", end='\r')
+            eli_count = (eli_count + 1) % 4
+            time.sleep(.2)
+        thread.join()
+        print('Done      ')
     
     app.run(host=args.host, debug=args.debug, port=args.port)
