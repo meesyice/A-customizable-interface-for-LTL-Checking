@@ -13,4 +13,4 @@ ENV PORT=8000
 EXPOSE 8000
 
 ENTRYPOINT [ "python" ]
-CMD [ "run.py" ]
+CMD [ "run.py", "--host=0.0.0.0"]
