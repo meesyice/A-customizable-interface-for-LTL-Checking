@@ -26,7 +26,9 @@ def get_data():
 
 def _get_data():
     for data_url in data_urls:
-        if exists('app/tests/data/' + data_url.split('/')[-1]):
+        if exists('tests/data/' + data_url.split('/')[-1]):
+            print('(' + data_url + ') already exists skipping...')
+            time.sleep(.5)
             continue
         else:
             print('Downloading data from: (' + data_url + ')...')
