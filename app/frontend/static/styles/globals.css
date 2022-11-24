@@ -117,3 +117,9 @@ footer p {
   color: bisque;
  
 }
+
+.flash {
+  color: red;
+  font-weight: bold;
+  font-size: 20px
+}
