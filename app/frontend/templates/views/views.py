@@ -28,7 +28,6 @@ def delete(file):
 def applyLTL():
     file = request.form.get('uploaded_file')
     rule = request.form.get('LTL_rule')
-    print(file, rule)
     return redirect('/')
 
 @app.route('/<path:path>')
