@@ -1,7 +1,10 @@
 from app import app
 from flask import render_template, request, redirect, flash
 from werkzeug.utils import secure_filename
+from pm4py import write_xes, read_xes
 import os
+
+from app.backend.ltlcalls import apply_filter, choose_filter
 
 @app.route('/')
 @app.route('/index')
@@ -12,26 +15,20 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['datei']
+    ltl_rule = request.form['LTL_rule']
+    events = request.form.getlist('activity')
+    print(events)
     file_type = os.path.splitext(file.filename)[1]
     if file_type.lower() not in app.config['ALLOWED_FILE_TYPE']:
         flash("Please upload a XES file")
     else:
-        file.save(os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename(file.filename)))
-    return redirect('/index')
-
-@app.route('/delete/<file>', methods=['POST','GET'])
-def delete(file):
-    os.unlink(os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename(file)))
-    return redirect('/index')
-
-@app.route('/applyLTL', methods=['POST'])
-def applyLTL():
-    file = request.form.get('uploaded_file')
-    if not file:
-        flash("Please upload a log file")
-        return redirect('/')
-    rule = request.form.getlist('LTL_rule')
-    return redirect('/')
+        file_path = os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename(file.filename))
+        file.save(file_path)
+     
+    filterd_log = apply_filter(read_xes(file_path), choose_filter(ltl_rule), events)
+    write_xes(filterd_log, file_path)
+    
+    return redirect('/' + file_path)
 
 @app.route('/<path:path>')
 def content(path):
