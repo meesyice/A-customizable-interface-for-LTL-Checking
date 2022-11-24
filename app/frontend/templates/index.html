@@ -36,6 +36,7 @@
             <input type="submit" value="Submit">
           </section>
         </form>
+        
         <form action="/applyLTL" method="post" enctype="multipart/form-data">
           <div id="s">
             {% if files %}
@@ -51,49 +52,37 @@
             </div>
             </section>
             {% endif %}
-            <section class="filters">
+            <section id="section1" class="filters">
               <h3>Select LTL rules:</h3>
               
-              <input  required class="checkboxes" id="1" type="checkbox" name="LTL_rule" value="ltl_checker.A_eventually_B(log, A, B)">
+              <input class="checkbox" id="1" type="checkbox" name="LTL_rule" value="ltl_checker.A_eventually_B(log, A, B)">
               <label class="hovertext" data-hover="Applies the A eventually B rule,
               finding the cases in which an event with activity A was followed in the future by an event with activity B." for="1">A_eventually_B(log, A, B)</label>
               <br> 
-              <input  required class="checkboxes" id="2" type="checkbox" name="LTL_rule" value="ltl_checker.A_eventually_B_eventually_C(log, A, B, C)">
+              <input class="checkbox" id="2" type="checkbox" name="LTL_rule" value="ltl_checker.A_eventually_B_eventually_C(log, A, B, C)">
               <label class="hovertext" data-hover="Applies the A eventually B eventually C rule,
               finding the cases in which an event with activity A was followed in the future by an event with activity B which was followed by an event with activity C." for="2">A_eventually_B_eventually_C(log, A, B, C)</label>
               <br>  
-              <input required class="checkboxes" id="3" type="checkbox" name="LTL_rule" value="ltl_checker.A_eventually_B_eventually_C_eventually_D(log, A, B, C, D)"> 
+              <input class="checkbox" id="3" type="checkbox" name="LTL_rule" value="ltl_checker.A_eventually_B_eventually_C_eventually_D(log, A, B, C, D)"> 
               <label class="hovertext" data-hover="Applies the A eventually B eventually C eventually D rule,
               finding the cases in which an event with activity A was followed in the future by an event with activity B which was followed by an event with activity C which was followed by an event with activity D." for="3">A_eventually_B_eventually_C_eventually_D(log, A, B, C, D)</label>
               <br>
-              <input required class="checkboxes" id="4" type="checkbox" name="LTL_rule" value="ltl_checker.A_next_B_next_C(log, A, B, C)">
+              <input class="checkbox" id="4" type="checkbox" name="LTL_rule" value="ltl_checker.A_next_B_next_C(log, A, B, C)">
               <label class="hovertext" data-hover="Applies the A next B next C rule,
               finding the cases in which an event with activity A was directly followed by an event with activity B which was directly followed by an event with activity C." for="4">A_next_B_next_C(log, A, B, C)</label>
               <br> 
-              <input required class="checkboxes" id="5" type="checkbox" name="LTL_rule" value="ltl_checker.four_eyes_principle(log, A, B)">
+              <input class="checkbox" id="5" type="checkbox" name="LTL_rule" value="ltl_checker.four_eyes_principle(log, A, B)">
               <label class="hovertext" data-hover="Applies the four eyes principle on the activities A and B." for="5">four_eyes_principle(log, A, B)</label>
               <br> 
-              <input required class="checkboxes" id="6" type="checkbox" name="LTL_rule" value="ltl_checker.attr_value_different_persons(log, A)">
+              <input class="checkbox" id="6" type="checkbox" name="LTL_rule" value="ltl_checker.attr_value_different_persons(log, A)">
               <label class="hovertext" data-hover="Finds the process executions in which the activity A is repeated by different people." for="6">attr_value_different_persons(log, A)</label> 
               <br>
-              <script type="text/javascript">
-                $(document).ready(function(){
-                    var checkboxes = $('.checkboxes');
-                    checkboxes.change(function(){
-                        if($('.checkboxes:checked').length>0) {
-                            checkboxes.removeAttr('required');
-                        } else {
-                            checkboxes.attr('required', 'required');
-                        }
-                    });
-                });
-              </script> 
-            
+             
             </section>
           </div>
           <input class="boton" type="submit" value="Start">
-        </form>   
-           
+        </form> 
+        <script src="../static/javascript/choicelimit.js"></script>
           
         
       </main>
