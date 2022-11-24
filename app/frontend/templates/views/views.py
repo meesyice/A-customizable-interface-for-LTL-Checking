@@ -27,19 +27,10 @@ def upload():
      
     filterd_log = apply_filter(read_xes(file_path), choose_filter(ltl_rule), events)
     write_xes(filterd_log, file_path)
-    
-    return redirect('/')
-
-@app.route('/<path:path>')
-def content(path):
-    with open(path, "r") as f: 
-        content = f.read() 
-        return render_template("content.html", content=content) 
-    
-@app.route('/downloads/<file>', methods=['GET', 'POST'])
-def downloads(file):
     @after_this_request
     def delete(response):
-        os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], file))
+        os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'result.xes'))
         return response
-    return send_file(os.path.join('imported_files', file))
+    return send_file(os.path.join('imported_files', 'result.xes'))
+
+    

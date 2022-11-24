@@ -34,11 +34,6 @@
             <label for="myfile">Drop file here or</label>
             <input required id="myfile"  name="datei" type="file" size="50" accept=".xes">
           </section>
-          <div class='uploaded_file'>
-            {% for file in files %}
-            <a href="/downloads/{{ file }}" target="_blank">{{ file }}</a> 
-            {% endfor %}
-        </div>
           <div id="s">
             <section id="section1" class="filters">
               <h3>Select LTL rules:</h3>
