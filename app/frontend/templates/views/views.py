@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect, flash, send_file, after_this_request
+from flask import render_template, request, flash, send_file, after_this_request
 from werkzeug.utils import secure_filename
 from pm4py import write_xes, read_xes
 import os
