@@ -12,7 +12,6 @@ class LTL_Rule(Enum):
 apply_filter is a function that recieves a log file and an ltl rule and some activities and then based on what ltl rule has been chosen the log file will get filtered
 """
 def apply_filter(file, filter_type: LTL_Rule, events):
-                  
     match filter_type:
        #1st rule : A eventually B
         case LTL_Rule.A_ev_B:
@@ -36,3 +35,18 @@ def apply_filter(file, filter_type: LTL_Rule, events):
             filtered_log = None
 
     return filtered_log 
+
+def choose_filter(filter_name):
+    match filter_name:
+        case 'A eventually B':
+            return LTL_Rule.A_ev_B
+        case 'A eventually B eventually C':
+            return LTL_Rule.A_ev_B_ev_C
+        case 'A eventually B eventually C eventually D':
+            return LTL_Rule.A_ev_B_ev_C_ev_D
+        case 'A next to B next to C':
+            return LTL_Rule.A_nex_B_nex_C
+        case 'Four eyes principle':
+            return LTL_Rule.four_eye
+        case 'Value different persons':
+            return LTL_Rule.val_diff_person
