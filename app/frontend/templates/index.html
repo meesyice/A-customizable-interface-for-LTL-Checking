@@ -33,7 +33,12 @@
   
             <label for="myfile">Drop file here or</label>
             <input required id="myfile"  name="datei" type="file" size="50" accept=".xes"> 
-            <div class='uploaded_files'>
+          </section>
+          <div id="s">
+            {% if files %}
+            <section class="files">
+              <h3>Select log file:</h3>
+              <div class='uploaded_files'>
                 {% for file in files %}
                 <input type='radio' name='uploaded_file' value={{ file }}/>
                 <a href='../app/import_files/{{ file }}' target='_blank'>{{ file }}</a> 
@@ -41,8 +46,8 @@
                 <br />
                 {% endfor %}
             </div>
-          </section>
-          <div id="s">
+            </section>
+            {% endif %}
             <section class="filters">
               <h3>Select LTL rules:</h3>
               
