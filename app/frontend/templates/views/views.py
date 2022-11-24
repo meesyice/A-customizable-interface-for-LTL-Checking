@@ -24,6 +24,13 @@ def delete(file):
     os.unlink(os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename(file)))
     return redirect('/index')
 
+@app.route('/applyLTL', methods=['POST'])
+def applyLTL():
+    file = request.form.get('uploaded_file')
+    rule = request.form.get('LTL_rule')
+    print(file, rule)
+    return redirect('/')
+
 @app.route('/<path:path>')
 def content(path):
     with open(path, "r") as f: 

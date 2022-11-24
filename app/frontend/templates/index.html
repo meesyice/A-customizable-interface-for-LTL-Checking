@@ -32,11 +32,14 @@
           <section class="file">
   
             <label for="myfile">Drop file here or</label>
-            <input required id="myfile"  name="datei" type="file" size="50" accept=".xes"> 
+            <input required id="myfile"  name="datei" type="file" size="50" accept=".xes">
+            <input type="submit" value="Submit">
           </section>
+        </form>
+        <form action="/applyLTL" method="post" enctype="multipart/form-data">
           <div id="s">
             {% if files %}
-            <section class="files">
+            <section class="filters">
               <h3>Select log file:</h3>
               <div class='uploaded_files'>
                 {% for file in files %}
@@ -77,7 +80,6 @@
             
             </section>
           </div>
-          <br>
           <input class="boton" type="submit" value="Start">
         </form>   
            
