@@ -42,7 +42,7 @@ header h1{
 
 .filters{
   background-color: hsl(34, 78%, 89%);
-  margin: 70px auto;
+  margin: 50px auto;
   text-align: justify;
   width: 510px;
   
@@ -116,4 +116,10 @@ footer p {
   text-align: center;
   color: bisque;
  
+}
+
+.flash {
+  color: red;
+  font-weight: bold;
+  font-size: 20px
 }
