@@ -1,8 +1,145 @@
-body {
-  background-color: lightblue;
+html, body {
+  margin: 0;
+  padding: 0;
+  min-width: 696px;
+  background-color: hsl(34, 78%, 91%);
+  text-align: center;
+  min-height: 800px;
 }
 
-h1 {
-  color: white;
+header {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #333333; 
+  padding: 20px;
+  width: 100%;
+  margin-bottom: 5%;
+}
+
+header h1{
+  color: hsl(34, 78%, 85%);
+  letter-spacing: 20px;
+}
+
+
+
+.file {
+  color: #fff;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 1.3px;
+  padding: 16px 40px;
+  display: block;
+	padding: 2em;
+	border: 1px dotted;
+  color: #000;
+  max-width: 600px;
+  margin: 20px auto;
+  background-color: hsl(34, 78%, 89%);
+}
+
+
+
+.filters{
+  background-color: hsl(34, 78%, 89%);
+  margin: 50px auto;
+  text-align: justify;
+  width: 510px;
+  
+  padding: 10px 10px;
+  padding-left: 30px;
+  cursor: pointer;
+}
+
+.filters h3{
+  padding-bottom: 15px;
+  margin: 0px auto;
+}
+
+label:hover{
+  color: hsl(34, 83%, 47%);
+}
+
+
+
+.boton{
+  margin-top: 40px;
+  padding: 10px 40px;
+  background-color: hsl(34, 78%, 87%);
+  margin-bottom: 100px;
+}
+
+.boton:hover{
+  color:hsl(33, 95%, 51%);
+  background-color: #333;
+
+}
+.hovertext {
+  position: relative;
+  border-bottom: 1px dotted black;
+}
+
+.hovertext:before {
+  content: attr(data-hover);
+  visibility: hidden;
+  opacity: 0;
+  min-width: 350px;
+  max-width: 450px;
+  background-color: black;
+  color: #fff;
   text-align: center;
+  border-radius: 5px;
+  padding: 5px 5px;
+  transition: opacity 1s ease-in-out;
+
+  position: absolute;
+  z-index: 1;
+  left: 200px;
+  top: 110%;
+}
+
+.hovertext:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+
+.activityInput{
+  width: 100px;
+  margin: 10px auto;
+  padding: 5px 20px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: inline;
+}
+
+
+
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 30px 0;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  margin-top: 200px;
+  height: 5px;
+}
+
+footer p {
+  font-family: 'Raleway', sans-serif;
+  
+  font-size: 11px;
+  text-align: center;
+  color: bisque;
+ 
+}
+
+.flash {
+  color: red;
+  font-weight: bold;
+  font-size: 20px
 }
