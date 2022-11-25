@@ -3,14 +3,14 @@
     <head>
         <title>LTL Checker</title>
         <meta charset="UTF-8" />
-        <meta name="author" content="Mohammed Al-Laktah" />
+        <meta name="author" content="Group_1" />
         <meta name="description" content="A-customizable-interface-for-LTL-Checking" />
         <meta name="keywords" content="HTML, CSS, JavaScript, Python" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="../static/images/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="../static/styles/globals.css" />
         <link href='https://fonts.googleapis.com/css?family=Raleway:400, 600' rel='stylesheet' type='text/css'>
-        <script src="../static/javascript/main.js" ></script>
+        <script src="../static/javascript/main.js" defer></script>
     </head>
     <body> 
       <header>
@@ -36,38 +36,39 @@
           </section>
           <div id="s">
             <section id="section1" class="filters">
-              <h3>Select LTL rules:</h3>
+              <h3>Select a LTL rule:</h3>
               
-              <input required class="checkbox" id="1" type="radio" name="LTL_rule" value="A eventually B">
-              <label class="hovertext" data-hover="Applies the A eventually B rule,
-              finding the cases in which an event with activity A was followed in the future by an event with activity B." for="1">A_eventually_B(log, A, B)</label>
+              <input id="1" onclick="clickAB()" required class="checkbox"  type="radio" name="LTL_rule" value="A eventually B">
+              <label onclick="clickAB()" class="hovertext" data-hover="Applies the A eventually B rule,
+              finding the cases in which an event with activity A was followed in the future by an event with activity B." for="1">A eventually B</label>
               <br> 
-              <input class="checkbox" id="2" type="radio" name="LTL_rule" value="A eventually B eventually C">
-              <label class="hovertext" data-hover="Applies the A eventually B eventually C rule,
-              finding the cases in which an event with activity A was followed in the future by an event with activity B which was followed by an event with activity C." for="2">A_eventually_B_eventually_C(log, A, B, C)</label>
+              <input id="2" onclick="clickABC()" class="checkbox"  type="radio" name="LTL_rule" value="A eventually B eventually C">
+              <label onclick="clickABC()" class="hovertext" data-hover="Applies the A eventually B eventually C rule,
+              finding the cases in which an event with activity A was followed in the future by an event with activity B which was followed by an event with activity C." for="2">A eventually B eventually C</label>
               <br>  
-              <input class="checkbox" id="3" type="radio" name="LTL_rule" value="A eventually B eventually C eventually D"> 
-              <label class="hovertext" data-hover="Applies the A eventually B eventually C eventually D rule,
-              finding the cases in which an event with activity A was followed in the future by an event with activity B which was followed by an event with activity C which was followed by an event with activity D." for="3">A_eventually_B_eventually_C_eventually_D(log, A, B, C, D)</label>
+              <input id="3" onclick="clickABCD()" class="checkbox"  type="radio" name="LTL_rule" value="A eventually B eventually C eventually D"> 
+              <label onclick="clickABCD()" class="hovertext" data-hover="Applies the A eventually B eventually C eventually D rule,
+              finding the cases in which an event with activity A was followed in the future by an event with activity B which was followed by an event with activity C which was followed by an event with activity D." for="3">A eventually B eventually C eventually D</label>
               <br>
-              <input class="checkbox" id="4" type="radio" name="LTL_rule" value="A next to B next to C">
-              <label class="hovertext" data-hover="Applies the A next B next C rule,
-              finding the cases in which an event with activity A was directly followed by an event with activity B which was directly followed by an event with activity C." for="4">A_next_B_next_C(log, A, B, C)</label>
+              <input  id="4" onclick="clickABC()" class="checkbox"  type="radio" name="LTL_rule" value="A next to B next to C">
+              <label onclick="clickABC()" class="hovertext" data-hover="Applies the A next B next C rule,
+              finding the cases in which an event with activity A was directly followed by an event with activity B which was directly followed by an event with activity C." for="4">A next to B next to C</label>
               <br> 
-              <input class="checkbox" id="5" type="radio" name="LTL_rule" value="Four eyes principle">
-              <label class="hovertext" data-hover="Applies the four eyes principle on the activities A and B." for="5">four_eyes_principle(log, A, B)</label>
+              <input id="5" onclick="clickAB()" class="checkbox"  type="radio" name="LTL_rule" value="Four eyes principle">
+              <label onclick="clickAB()" class="hovertext" data-hover="Applies the four eyes principle on the activities A and B." for="5">Four eyes principle</label>
               <br> 
-              <input class="checkbox" id="6" type="radio" name="LTL_rule" value="Value different persons">
-              <label class="hovertext" data-hover="Finds the process executions in which the activity A is repeated by different people." for="6">attr_value_different_persons(log, A)</label> 
+              <input id="6" onclick="clickA()" class="checkbox"  type="radio" name="LTL_rule" value="Value different persons">
+              <label onclick="clickA()" class="hovertext" data-hover="Finds the process executions in which the activity A is repeated by different people." for="6">Value different persons</label> 
               <br>
              
             </section>
           </div>
-          <div>
-            <input type="text" name="activity">
-            <input type="text" name="activity">
-            <input type="text" name="activity">
-            <input type="text" name="activity">
+          <div id="activtyFeld">
+            <h3 id="text" style="display: none;">Now chose the activities:</h3>
+            <input class="activityInput" id="a" type="text" name="activity" placeholder="activity A" style="display: none;" >
+            <input class="activityInput" id="b" type="text" name="activity" placeholder="activity B" style="display: none;" >
+            <input class="activityInput" id="c" type="text" name="activity" placeholder="activity C" style="display: none;" >
+            <input class="activityInput" id="d" type="text" name="activity" placeholder="activity D" style="display: none;" >
           </div>
           <input class="boton" type="submit" value="Start">
         </form> 
@@ -80,7 +81,7 @@
   
       <footer>
         <div class="container">
-          <p>&copy; Grupe_1 2022</p>
+          <p>&copy; Group_1 2022</p>
         </div>
       </footer>
       

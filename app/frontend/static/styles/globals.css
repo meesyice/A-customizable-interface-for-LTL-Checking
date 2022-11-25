@@ -1,23 +1,23 @@
 html, body {
   margin: 0;
   padding: 0;
-  min-width: 550px;
+  min-width: 696px;
   background-color: hsl(34, 78%, 91%);
   text-align: center;
-  min-height: 700px;
+  min-height: 800px;
 }
 
 header {
   font-family: 'Courier New', Courier, monospace;
   background-color: #333333; 
-  padding: 2px;
+  padding: 20px;
   width: 100%;
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 
 header h1{
   color: hsl(34, 78%, 85%);
-  letter-spacing: 15px;
+  letter-spacing: 20px;
 }
 
 
@@ -47,10 +47,12 @@ header h1{
   width: 510px;
   
   padding: 10px 10px;
+  padding-left: 30px;
+  cursor: pointer;
 }
 
 .filters h3{
-  
+  padding-bottom: 15px;
   margin: 0px auto;
 }
 
@@ -59,9 +61,12 @@ label:hover{
 }
 
 
+
 .boton{
+  margin-top: 40px;
   padding: 10px 40px;
   background-color: hsl(34, 78%, 87%);
+  margin-bottom: 100px;
 }
 
 .boton:hover{
@@ -98,6 +103,21 @@ label:hover{
   visibility: visible;
 }
 
+
+
+.activityInput{
+  width: 100px;
+  margin: 10px auto;
+  padding: 5px 20px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: inline;
+}
+
+
+
+
 footer {
   background-color: #333;
   color: #fff;
@@ -105,7 +125,7 @@ footer {
   position: fixed;
   bottom: 0px;
   width: 100%;
-  margin-top: 100px;
+  margin-top: 200px;
   height: 5px;
 }
 
