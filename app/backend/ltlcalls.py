@@ -1,6 +1,10 @@
 import pm4py.algo.filtering.log.ltl as ltl
 from enum import Enum 
 from pm4py import read_xes
+
+"""
+Enum of all LTL rules provided by pm4py.
+"""
 class LTL_Rule(Enum):
     A_ev_B = 1
     A_ev_B_ev_C = 2
