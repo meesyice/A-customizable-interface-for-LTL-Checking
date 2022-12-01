@@ -34,7 +34,9 @@ header h1 {
   letter-spacing: 20px;
 }
 
-
+input {
+  cursor: pointer !important;
+}
 
 .file {
   font-size: 18px;
