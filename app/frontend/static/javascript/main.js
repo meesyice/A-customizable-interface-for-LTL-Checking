@@ -2,9 +2,16 @@ let section = document.getElementById("activtyFeld");
 
 let none = document.getElementById("none");
 none.onclick = () => {
+	// remove the block input for the activties
 	let ruleNum = "second";
 	let activty = document.getElementById(ruleNum);
 	if (activty) removeAllInputsAt(activty);
+
+	// clear  the input for the activties
+	let LTL_rule_2 = document.getElementsByName("LTL_rule_2");
+	for (var i = 0; i < LTL_rule_2.length; i++) LTL_rule_2[i].checked = false;
+
+	// remove the rule block 2
 	let section2 = document.getElementById("section2");
 	section2.style.display = "none";
 	document.getElementById("1b").required = false;
