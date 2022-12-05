@@ -23,6 +23,11 @@ def saveFile(file):
         file.save(file_path)
         return file_path
     
+def writeFile(file_path):
+    ltl_rule = request.form['LTL_rule']
+    events = request.form.getlist('activity')
+    filterd_log = apply_filter(read_xes(file_path), choose_filter(ltl_rule), events)
+    write_xes(filterd_log, file_path)
 
 """
 Takes a file uploaded by the user and applies the filter chosen by the user to it using arguments provided by the user.
@@ -30,16 +35,13 @@ Takes a file uploaded by the user and applies the filter chosen by the user to i
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['datei']
-    ltl_rule = request.form['LTL_rule']
-    events = request.form.getlist('activity')
  
     file_path = saveFile(file)
     
     if not file_path:
         return redirect('/')
     else:
-        filterd_log = apply_filter(read_xes(file_path), choose_filter(ltl_rule), events)
-        write_xes(filterd_log, file_path)
+        writeFile(file_path)
     @after_this_request
     def delete(response):
         os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'result.xes'))
