@@ -13,6 +13,9 @@ def index():
     return render_template('index.html', files = files)
 
 
+"""
+Save the uploaded file
+"""
 def saveFile(file):
     file_type = os.path.splitext(file.filename)[1]
     if file_type.lower() not in app.config['ALLOWED_FILE_TYPE']:
@@ -23,6 +26,10 @@ def saveFile(file):
         file.save(file_path)
         return file_path
     
+
+"""
+Apply LTL rules to process the file and overwrite the original file with the processed file
+"""    
 def writeFile(file_path):
     ltl_rule = request.form['LTL_rule']
     events = request.form.getlist('activity')
@@ -41,6 +48,10 @@ def upload():
         writeFile(file_path)
     return redirect('/result')
 
+
+"""
+Download the processed file and delete it after the file download is complete
+"""
 @app.route('/result')
 def download():
     @after_this_request
