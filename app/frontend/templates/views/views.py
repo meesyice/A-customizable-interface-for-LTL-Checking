@@ -31,9 +31,11 @@ def saveFile(file):
 Apply LTL rules to process the file and overwrite the original file with the processed file
 """    
 def writeFile(file_path):
-    ltl_rule = request.form['LTL_rule']
-    events = request.form.getlist('activity')
-    filterd_log = apply_filter(read_xes(file_path), choose_filter(ltl_rule), events)
+    ltl_rule_1 = request.form['LTL_rule_1']
+    ltl_rule_2 = request.form['LTL_rule_2']
+    events_1 = request.form.getlist('activitiesOfThefirstRule')
+    events_2 = request.form.getlist('activitiesOfThesecondRule')
+    filterd_log = apply_filter(read_xes(file_path), choose_filter(ltl_rule_1), events_1)
     write_xes(filterd_log, file_path)
 
 """
