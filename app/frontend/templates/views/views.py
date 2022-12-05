@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, flash, send_file, after_this_request
+from flask import render_template, request, flash, send_file, after_this_request, redirect
 from werkzeug.utils import secure_filename
 from pm4py import write_xes, read_xes
 import os
@@ -20,10 +20,11 @@ def upload():
     file = request.files['datei']
     ltl_rule = request.form['LTL_rule']
     events = request.form.getlist('activity')
-    print(events)
+ 
     file_type = os.path.splitext(file.filename)[1]
     if file_type.lower() not in app.config['ALLOWED_FILE_TYPE']:
         flash("Please upload a XES file")
+        return redirect("/")
     else:
         file_path = os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename('result.xes'))
         file.save(file_path)
