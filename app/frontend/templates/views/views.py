@@ -34,18 +34,18 @@ Takes a file uploaded by the user and applies the filter chosen by the user to i
 """
 @app.route('/upload', methods=['POST'])
 def upload():
-    file = request.files['datei']
- 
-    file_path = saveFile(file)
-    
+    file_path = saveFile(request.files['datei'])
     if not file_path:
         return redirect('/')
     else:
         writeFile(file_path)
+    return redirect('/result')
+
+@app.route('/result')
+def download():
     @after_this_request
     def delete(response):
         os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'result.xes'))
         return response
     return send_file(os.path.join('imported_files', 'result.xes'))
 
-    
