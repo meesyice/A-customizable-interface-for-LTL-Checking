@@ -33,7 +33,10 @@ Download the processed file and delete it after the file download is complete
 def download():
     @after_this_request
     def delete(response):
-        os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'result.xes'))
+        try:
+            os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'result.xes'))
+        except PermissionError as error:
+            print(error)
         return response
     return send_file(os.path.join('imported_files', 'result.xes'))
 
