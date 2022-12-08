@@ -23,13 +23,13 @@ def upload():
         return redirect('/')
     else:
         writeFile(file_path)
-    return redirect('/result')
+    return redirect('/result', code=307)
 
 
 """
 Download the processed file and delete it after the file download is complete
 """
-@app.route('/result')
+@app.route('/result', methods=['POST'])
 def download():
     @after_this_request
     def delete(response):
