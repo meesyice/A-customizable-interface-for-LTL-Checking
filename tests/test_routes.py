@@ -21,6 +21,11 @@ def test_upload():
     response = client.post('/upload', data=datei, content_type='multipart/form-data')
     file.close()
     assert os.path.exists(app.config['UPLOAD_DIRECTORY'] + '/result.xes')
-    assert response.status_code == 302
+    assert response.status_code == 307
     
+def test_delete():
+    client = app.test_client()
+    response = client.post('/result')
+    assert not os.path.exists(app.config['UPLOAD_DIRECTORY'] + '/result.xes')
+    assert response.status_code == 200
     
