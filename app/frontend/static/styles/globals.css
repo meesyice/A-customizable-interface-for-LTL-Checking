@@ -1,7 +1,6 @@
 body {
   margin: 0;
   padding: 0;
-  min-width: 496px;
   background-color: hsl(34, 78%, 91%);
   text-align: center;
   width: 100%;
@@ -115,7 +114,7 @@ form {
   content: attr(data-hover);
   visibility: hidden;
   opacity: 0;
-  min-width: 350px;
+  min-width: 200px;
   max-width: 450px;
   background-color: black;
   color: #fff;
