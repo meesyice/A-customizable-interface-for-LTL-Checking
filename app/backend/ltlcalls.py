@@ -1,7 +1,7 @@
+import pandas as pd
 import pm4py.algo.filtering.log.ltl as ltl
 from enum import Enum
 from pm4py import convert_to_dataframe
-import pandas as pd
 
 
 class LTL_Rule(Enum):
@@ -76,7 +76,12 @@ def OR(file, filters: LTL_Rule, events: list[list[str]]):
     for filter in filters:
         dataframes.append(convert_to_dataframe(apply_filter(file, filter, events[i])))
         i+=1
-    return pd.concat(dataframes).drop_duplicates()
+    if len(dataframes[0]) == 0:
+        return dataframes[1]
+    elif len(dataframes[1]) == 0:
+        return dataframes[0]
+    else:
+        return pd.concat(dataframes).drop_duplicates().reset_index(drop=True)
 
 """ 
 AND is a function that combine filtered logs by keeping the events that satisfy both filters. 
@@ -90,4 +95,7 @@ def AND(file, filters: LTL_Rule, events: list[list[str]]):
     for filter in filters:
         dataframes.append(convert_to_dataframe(apply_filter(file, filter, events[i])))
         i+=1
-    return pd.merge(dataframes, how='inner').drop_duplicates()
+    if len(dataframes[0]) == 0 or len(dataframes[1]) == 0:
+        return pd.DataFrame()
+    else:
+        return pd.merge(dataframes[0],dataframes[1], how='inner').drop_duplicates()
