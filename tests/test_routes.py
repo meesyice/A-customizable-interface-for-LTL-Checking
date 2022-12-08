@@ -11,14 +11,16 @@ def test_homepage():
     
 def test_upload():
     client = app.test_client()
-    file_name = 'running-example.xes'
+    file = open('tests/data/running-example.xes','rb')
     datei = {
-        'datei': (open('tests/data/running-example.xes','rb'), file_name),
+        'datei': (file, 'running-example.xes'),
         'LTL_rule_1':'A eventually B',
         'activitiesOfThefirstRule':['decide', 'check ticket'],
         'andOr':'none'
     }
     response = client.post('/upload', data=datei, content_type='multipart/form-data')
+    file.close()
+    assert os.path.exists(app.config['UPLOAD_DIRECTORY'] + '/result.xes')
     assert response.status_code == 302
     
     
