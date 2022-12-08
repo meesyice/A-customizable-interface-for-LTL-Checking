@@ -1,9 +1,7 @@
-from asyncore import write
 import pm4py.algo.filtering.log.ltl as ltl
 from enum import Enum
-from pm4py import read_xes, convert_to_dataframe, write_xes
+from pm4py import convert_to_dataframe
 import pandas as pd
-import os
 
 
 class LTL_Rule(Enum):
@@ -70,17 +68,26 @@ def choose_filter(filter_name):
 OR is a function that combine filtered logs by keeping the events that satisfy at least one filter. 
 Events are represented as list of lists where list i correspond to filter i .
 Converting our log file to data frames allows us to use some useful preimplemented panda functions like drop_duplicates().
-We return the concatenation of the data frames after the filtering happened and we drop any duplicate .
+We return the concatenation of the data frames after the filtering happened and we drop any duplicates.
 """
-def OR(file, filters, events):
-    filtered_files = []
-    i = 0
-    for i in range(0, len(filters)):
-        filtered_files.append(apply_filter(file, filters[i], events[i]))
-
+def OR(file, filters: LTL_Rule, events: list[list[str]]):
     dataframes = []
-    for f in filtered_files:
-        frame = convert_to_dataframe(f)
-        dataframes.append(frame)
-    
+    i = 0 
+    for filter in filters:
+        dataframes.append(convert_to_dataframe(apply_filter(file, filter, events[i])))
+        i+=1
     return pd.concat(dataframes).drop_duplicates()
+
+""" 
+AND is a function that combine filtered logs by keeping the events that satisfy both filters. 
+Events are represented as list of lists where list i correspond to filter i .
+Converting our log file to data frames allows us to use some useful preimplemented panda functions like drop_duplicates().
+We return the intersection of the data frames after the filtering happened and we drop any duplicates.
+"""
+def AND(file, filters: LTL_Rule, events: list[list[str]]):
+    dataframes = []
+    i = 0
+    for filter in filters:
+        dataframes.append(convert_to_dataframe(apply_filter(file, filter, events[i])))
+        i+=1
+    return pd.merge(dataframes, how='inner').drop_duplicates()
