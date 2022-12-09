@@ -18,17 +18,16 @@ def writeFile(file_path):
             filterd_log = apply_filter(read_xes(file_path), choose_filter(ltl_rule_1), events_1)
         case 'and':
             filters = []
-            filters.append(request.form['LTL_rule_1'])
-            filters.append(request.form['LTL_rule_2'])
+            filters.append(choose_filter(request.form['LTL_rule_1']))
+            filters.append(choose_filter(request.form['LTL_rule_2']))
             events = []
             events.append(request.form.getlist('activitiesOfThefirstRule'))
             events.append(request.form.getlist('activitiesOfThesecondRule'))
-            print(file_path, filters, events)
-            filterd_log_log = AND(read_xes(file_path), filters, events)
+            filterd_log = AND(read_xes(file_path), filters, events)
         case 'or':
             filters = []
-            filters.append(request.form['LTL_rule_1'])
-            filters.append(request.form['LTL_rule_2'])
+            filters.append(choose_filter(request.form['LTL_rule_1']))
+            filters.append(choose_filter(request.form['LTL_rule_2']))
             events = []
             events.append(request.form.getlist('activitiesOfThefirstRule'))
             events.append(request.form.getlist('activitiesOfThesecondRule'))
