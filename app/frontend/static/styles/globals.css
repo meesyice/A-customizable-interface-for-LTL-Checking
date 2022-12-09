@@ -1,79 +1,110 @@
-html, body {
+body {
   margin: 0;
   padding: 0;
-  min-width: 696px;
   background-color: hsl(34, 78%, 91%);
   text-align: center;
-  min-height: 800px;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+main {
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
 }
 
 header {
   font-family: 'Courier New', Courier, monospace;
-  background-color: #333333; 
+  background-color: #000000;
   padding: 20px;
-  width: 100%;
+
   margin-bottom: 5%;
+  text-align: center;
+
 }
 
-header h1{
+header h1 {
   color: hsl(34, 78%, 85%);
   letter-spacing: 20px;
 }
 
-
+input {
+  cursor: pointer !important;
+}
 
 .file {
-  color: #fff;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 600;
   font-size: 18px;
-  letter-spacing: 1.3px;
   padding: 16px 40px;
   display: block;
-	padding: 2em;
-	border: 1px dotted;
+  padding: 2em;
+  border: 1px solid;
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.627);
   color: #000;
   max-width: 600px;
   margin: 20px auto;
   background-color: hsl(34, 78%, 89%);
+
 }
 
-
-
-.filters{
-  background-color: hsl(34, 78%, 89%);
-  margin: 50px auto;
-  text-align: justify;
-  width: 510px;
-  
-  padding: 10px 10px;
-  padding-left: 30px;
+#myfile {
   cursor: pointer;
 }
 
-.filters h3{
-  padding-bottom: 15px;
-  margin: 0px auto;
+
+
+.filters {
+  background-color: hsl(34, 78%, 89%);
+  border-radius: 15px;
+  margin: 0px 10px;
+  text-align: justify;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.627);
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px 10px;
+  border: .1px solid;
+
+  display: inline-block;
 }
 
-label:hover{
+.filters h3 {
+  padding-bottom: 15px;
+  margin: 0px auto;
+  border-radius: 15px;
+}
+
+label:hover {
+  cursor: pointer;
   color: hsl(34, 83%, 47%);
 }
 
 
 
-.boton{
+.boton {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.627);
   margin-top: 40px;
-  padding: 10px 40px;
+  padding: 10px 50px;
+  border-radius: 15px;
   background-color: hsl(34, 78%, 87%);
   margin-bottom: 100px;
+  font-size: 20px;
+  cursor: pointer;
 }
 
-.boton:hover{
-  color:hsl(33, 95%, 51%);
+form {
+  text-align: center;
+}
+
+.boton:hover {
+  color: hsl(33, 95%, 51%);
   background-color: #333;
 
 }
+
 .hovertext {
   position: relative;
   border-bottom: 1px dotted black;
@@ -83,7 +114,7 @@ label:hover{
   content: attr(data-hover);
   visibility: hidden;
   opacity: 0;
-  min-width: 350px;
+  min-width: 200px;
   max-width: 450px;
   background-color: black;
   color: #fff;
@@ -94,8 +125,8 @@ label:hover{
 
   position: absolute;
   z-index: 1;
-  left: 200px;
-  top: 110%;
+  left: 0;
+  top: 200%;
 }
 
 .hovertext:hover:before {
@@ -105,37 +136,70 @@ label:hover{
 
 
 
-.activityInput{
+.activityInput {
   width: 100px;
-  margin: 10px auto;
+  margin: 10px 10px;
   padding: 5px 20px;
   border: 1px solid #333;
   border-radius: 5px;
   margin-bottom: 10px;
   display: inline;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.627);
+}
+
+.composition {
+  margin-top: 130px;
+  width: 170px;
+  padding-bottom: 80px;
+  position: relative;
+  bottom: 70px;
+}
+
+.composition h3 {
+  padding-bottom: 45px;
+  position: relative;
+  left: 15px;
+}
+
+.composition label {
+  padding-left: 0px;
+}
+
+.activtyFeld {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.627);
+  display: inline-block;
+  background-color: hsl(34, 78%, 89%);
+  padding: 10px;
+  margin: 10px;
+  border: .01mm solid;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-top: 50px;
 }
 
 
-
-
 footer {
-  background-color: #333;
+  background-color: rgb(0, 0, 0);
+
   color: #fff;
   padding: 30px 0;
-  position: fixed;
+
   bottom: 0px;
   width: 100%;
   margin-top: 200px;
   height: 5px;
+  position: absolute;
+
 }
 
 footer p {
   font-family: 'Raleway', sans-serif;
-  
+
   font-size: 11px;
   text-align: center;
   color: bisque;
- 
+
 }
 
 .flash {
