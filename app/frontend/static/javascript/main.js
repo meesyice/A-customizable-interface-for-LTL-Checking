@@ -20,32 +20,32 @@ addRuleToBoard = (array, rule) => {
 	let text = "";
 	switch (rule) {
 		case 1:
-			text = `<p>{${array[0].value} from different persons}</p>`;
+			text = `<p>${array[0].value.toUpperCase()} from different persons</p>`;
 			textBoard.push(text);
 			board.innerHTML = textBoard.join(" ");
 			break;
 		case 2:
-			text = `<p>{${array[0].value} eventually ${array[1].value}}</p>`;
+			text = `<p>${array[0].value.toUpperCase()} eventually ${array[1].value.toUpperCase()}</p>`;
 			textBoard.push(text);
 			board.innerHTML = textBoard.join(" ");
 			break;
 		case 3:
-			text = `<p>{${array[0].value} next to ${array[1].value} next to ${array[2].value}}</p>`;
+			text = `<p>${array[0].value.toUpperCase()} next to ${array[1].value.toUpperCase()} next to ${array[2].value.toUpperCase()}</p>`;
 			textBoard.push(text);
 			board.innerHTML = textBoard.join(" ");
 			break;
 		case 4:
-			text = `<p>{${array[0].value} eventually ${array[1].value} eventually ${array[2].value} eventually ${array[2].value}}</p>`;
+			text = `<p>${array[0].value.toUpperCase()} eventually ${array[1].value.toUpperCase()} eventually ${array[2].value.toUpperCase()} eventually ${array[2].value.toUpperCase()}</p>`;
 			textBoard.push(text);
 			board.innerHTML = textBoard.join(" ");
 			break;
 		case 5:
-			text = `<p>{ Four eyes principle for ( ${array[0].value}, ${array[1].value})} </p>`;
+			text = `<p> Four eyes principle for ( ${array[0].value.toUpperCase()}, ${array[1].value.toUpperCase()})}</p>`;
 			textBoard.push(text);
 			board.innerHTML = textBoard.join(" ");
 			break;
 		case 6:
-			text = `<p>{${array[0].value} eventually ${array[1].value} eventually ${array[2].value}}</p>`;
+			text = `<p>${array[0].value.toUpperCase()} eventually ${array[1].value.toUpperCase()} eventually ${array[2].value.toUpperCase()}</p>`;
 			textBoard.push(text);
 			board.innerHTML = textBoard.join(" ");
 			break;
