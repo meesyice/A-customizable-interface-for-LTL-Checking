@@ -1,6 +1,6 @@
 import argparse
 from app import app
-from tests.data.download import get_data
+from tests.data.download import LoadingCreator, download_data
 
 if '__main__' == __name__:
     parser = argparse.ArgumentParser(description='Run the app')
@@ -12,6 +12,7 @@ if '__main__' == __name__:
     args = parser.parse_args()
     
     if args.download:
-        get_data()
+        with LoadingCreator(download_data) as download:
+            download.run()
     
     app.run(host=args.host, debug=args.debug, port=args.port)
