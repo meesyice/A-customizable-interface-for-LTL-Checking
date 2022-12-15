@@ -11,8 +11,8 @@ class LTL_Rule(Enum):
     A_ev_B_ev_C = 2
     A_ev_B_ev_C_ev_D = 3
     A_nex_B_nex_C = 4
-    four_eye = 5
-    val_diff_person = 6
+    Four_eyes_principle = 5
+    Attr_val_diff_persons = 6
 
 
 """ 
@@ -38,11 +38,11 @@ def apply_filter(file, filter_type: LTL_Rule, events):
             filtered_log = ltl.ltl_checker.A_next_B_next_C(
                 file, events[0], events[1], events[2])
         # 5th rule : four eyes principle
-        case  LTL_Rule.four_eye:
+        case  LTL_Rule.Four_eyes_principle:
             filtered_log = ltl.ltl_checker.four_eyes_principle(
                 file, events[0], events[1])
         # 6th rule : value different persons
-        case  LTL_Rule.val_diff_person:
+        case  LTL_Rule.Attr_val_diff_persons:
             filtered_log = ltl.ltl_checker.attr_value_different_persons(
                 file, events[0])
         case _:
@@ -53,18 +53,20 @@ def apply_filter(file, filter_type: LTL_Rule, events):
 
 def choose_filter(filter_name):
     match filter_name:
-        case 'A eventually B':
+        case 'LTL_A_ev_B':
             return LTL_Rule.A_ev_B
-        case 'A eventually B eventually C':
+        case 'LTL_A_ev_B_ev_C':
             return LTL_Rule.A_ev_B_ev_C
-        case 'A eventually B eventually C eventually D':
+        case 'LTL_A_ev_B_ev_C_ev_D':
             return LTL_Rule.A_ev_B_ev_C_ev_D
-        case 'A next to B next to C':
+        case 'LTL_A_nex_B_nex_C':
             return LTL_Rule.A_nex_B_nex_C
-        case 'Four eyes principle':
-            return LTL_Rule.four_eye
-        case 'Value different persons':
-            return LTL_Rule.val_diff_person
+        case 'LTL_Four_Eyes_Principle':
+            return LTL_Rule.Four_eyes_principle
+        case 'LTL_Attr_Val_Diff_Persons':
+            return LTL_Rule.Attr_val_diff_persons
+        case _:
+            return None
 
 """ 
 OR is a function that combine filtered logs by keeping the events that satisfy at least one filter. 
