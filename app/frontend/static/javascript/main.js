@@ -20,32 +20,32 @@ addRuleToBoard = (array, rule) => {
 	let text = "";
 	switch (rule) {
 		case 1:
-			text = `<p>${array[0].value.toUpperCase()} from different persons</p>`;
+			text = `<p><span>${array[0].value}</span> from different persons</p>`;
 			textBoard.push(text);
 			board.innerHTML = textBoard.join(" ");
 			break;
 		case 2:
-			text = `<p>${array[0].value.toUpperCase()} eventually ${array[1].value.toUpperCase()}</p>`;
+			text = `<p><span>${array[0].value}</span> eventually <span>${array[1].value}</span></p>`;
 			textBoard.push(text);
 			board.innerHTML = textBoard.join(" ");
 			break;
 		case 3:
-			text = `<p>${array[0].value.toUpperCase()} next to ${array[1].value.toUpperCase()} next to ${array[2].value.toUpperCase()}</p>`;
+			text = `<p><span>${array[0].value}</span> next to <span>${array[1].value}</span> next to <span>${array[2].value}</span></p>`;
 			textBoard.push(text);
 			board.innerHTML = textBoard.join(" ");
 			break;
 		case 4:
-			text = `<p>${array[0].value.toUpperCase()} eventually ${array[1].value.toUpperCase()} eventually ${array[2].value.toUpperCase()} eventually ${array[2].value.toUpperCase()}</p>`;
+			text = `<p><span>${array[0].value}</span> eventually <span>${array[1].value}</span> eventually <span>${array[2].value}</span> eventually <span>${array[3].value}</span></p>`;
 			textBoard.push(text);
 			board.innerHTML = textBoard.join(" ");
 			break;
 		case 5:
-			text = `<p> Four eyes principle for ( ${array[0].value.toUpperCase()}, ${array[1].value.toUpperCase()})}</p>`;
+			text = `<p> Four eyes principle for ( <span>${array[0].value}</span>, <span>${array[1].value}</span>)}</p>`;
 			textBoard.push(text);
 			board.innerHTML = textBoard.join(" ");
 			break;
 		case 6:
-			text = `<p>${array[0].value.toUpperCase()} eventually ${array[1].value.toUpperCase()} eventually ${array[2].value.toUpperCase()}</p>`;
+			text = `<p><span>${array[0].value}</span> eventually <span>${array[1].value}</span> eventually <span>${array[2].value}</span></p>`;
 			textBoard.push(text);
 			board.innerHTML = textBoard.join(" ");
 			break;
@@ -232,7 +232,7 @@ restBn.addEventListener("click", () => {
 let backBtn = document.getElementById("back");
 backBtn.addEventListener("click", () => {
 	let lastEntry = result[result.length - 1];
-	if (lastEntry == "or" || lastEntry == "and") {
+	if (lastEntry == "LTL_Or" || lastEntry == "LTL_And") {
 		deletLastEntry();
 		showCom();
 		hideRules();
@@ -278,7 +278,7 @@ startBtn.addEventListener("click", (event) => {
 		event.preventDefault();
 	}
 	let lastEntry = result[result.length - 1];
-	if (lastEntry == "or" || lastEntry == "and") {
+	if (lastEntry == "LTL_Or" || lastEntry == "LTL_And") {
 		swal("check input!", "you have to choose another activity", "warning");
 		event.preventDefault();
 	}

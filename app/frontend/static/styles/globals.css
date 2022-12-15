@@ -92,6 +92,9 @@ input {
   font-size: 20px;
   cursor: pointer;
 }
+span{
+  text-decoration: underline;
+}
 
 form {
   text-align: center;
@@ -105,7 +108,7 @@ form {
 
 .hovertext {
   position: relative;
-  border-bottom: 1px dotted black;
+  
 }
 
 .hovertext:before {
@@ -181,13 +184,18 @@ form {
 }
 
 .board p {
-  font-size: 15px;
+  font-size: 20px;
   text-align: center;
   margin: 5px;
+  display: inline-block;
 }
 
 .board h1 {
+  font-size: 30px;
   margin-bottom: 20px;
+}
+.board{
+  font-size: 20px;
 }
 
 .composition {
