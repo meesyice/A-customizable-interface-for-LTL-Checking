@@ -13,6 +13,10 @@ class LTL_Rule(Enum):
     A_nex_B_nex_C = 4
     Four_eyes_principle = 5
     Attr_val_diff_persons = 6
+    
+class LTL_Combiner(Enum):
+    And = 1
+    Or = 2
 
 
 """ 
@@ -68,6 +72,16 @@ def choose_filter(filter_name):
         case _:
             return None
 
+def choose_combiner(combiner_name):
+    match combiner_name:
+        case 'LTL_And':
+            return LTL_Combiner.And
+        case 'LTL_Or':
+            return LTL_Combiner.Or
+        case _:
+            return None
+            
+
 """ 
 OR is a function that combine filtered logs by keeping the events that satisfy at least one filter. 
 Events are represented as list of lists where list i correspond to filter i .
@@ -103,3 +117,17 @@ def AND(file, filters: LTL_Rule, events: list[list[str]]):
         return pd.DataFrame()
     else:
         return pd.merge(dataframes[0],dataframes[1], how='inner').drop_duplicates()
+
+
+def parse_mod_ltl(mod_LTL_Rule: str):
+    filters = []
+    combiners = []
+    for subrule in mod_LTL_Rule.split(" "):
+        print(subrule)
+        if subrule in ["LTL_And", "LTL_Or"]:
+            combiners.append(choose_combiner(subrule))
+        else:
+            filters.append(choose_filter(subrule))
+    return filters, combiners
+
+print(parse_mod_ltl("LTL_A_ev_B LTL_Or LTL_A_ev_B_ev_C LTL_And LTL_A_ev_B_ev_C_ev_D"))
