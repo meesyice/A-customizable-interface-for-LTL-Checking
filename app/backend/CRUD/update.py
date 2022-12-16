@@ -12,7 +12,9 @@ def writeFile(file_path):
     json_file = saveAsJSON(activities)
     print(json_file)
     
-
+"""
+transfer activities to a json file
+"""
 def saveAsJSON(activities:list):
     # rules = re.split('LTL_And|LTL_Or', rules.replace('(','').replace(')','').replace(' ',''))
     res = dict()
