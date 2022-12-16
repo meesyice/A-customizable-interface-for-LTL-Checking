@@ -9,7 +9,7 @@ from app.backend.CRUD.update import writeFile
 @app.route('/index')
 def index():
     files = os.listdir(app.config['UPLOAD_DIRECTORY'])
-    return render_template('index.html', files = files)
+    return render_template('index.html', files = files, isDebug = app.debug)
 
 
 

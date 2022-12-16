@@ -20,15 +20,6 @@
   </header>
 
   <main>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <div class="flash">
-      {% for message in messages %}
-      <p>{{ message }}</p>
-      {% endfor %}
-    </div>
-    {% endif %}
-    {% endwith %}
 <form action="/upload" method="post" enctype="multipart/form-data">
   <section class="file">
 
@@ -99,8 +90,13 @@
   <button id="reset" class="start" type="button">Reset</button>
   <br>
 
+  {% if isDebug %}
   <label for="txt1"> Text</label>
   <textarea id="txt1" name="LTL_Rules" required></textarea>
+  {% else %}
+  <label hidden for="txt1"> Text</label>
+  <textarea hidden id="txt1" name="LTL_Rules" required></textarea>
+  {% endif %}
   <input hidden id="NumberOfRules" name="NumberOfRules">
 
 
