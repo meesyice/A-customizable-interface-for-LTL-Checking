@@ -9,13 +9,14 @@ let result = [];
 let bractsNum = 0;
 // ES6 Modules or TypeScript
 
-// document.getElementsByName("activitiesOfThe1Rule")[0].value;
-
 function insertText(elemID, text) {
 	let elem = document.getElementById(elemID);
 	elem.value = elem.value + " " + text;
 }
 
+/*
+	Add selected rules to the board.
+*/
 addRuleToBoard = (array, rule) => {
 	let text = "";
 	switch (rule) {
@@ -68,6 +69,9 @@ function addActivty(numOfActivties) {
 	}
 }
 
+/*
+	Match the selected LTL Rules with the corresponding numbers.
+*/
 findNumOfActivties = (element) => {
 	switch (element) {
 		case "A eventually B":
@@ -123,7 +127,9 @@ allOption.forEach((element) => {
 		if (rule === 5) rule = 2;
 		if (rule === 6) rule = 3;
 		addActivty(rule);
+		// if bracts are not selected
 		if (!element.classList.contains("bracts")) {
+			// if any rule is selected
 			if (element.classList.contains("rule")) {
 				hideRules();
 				hideCom();
@@ -170,6 +176,11 @@ function createElementText(placeholder, ruleNum) {
 	return activty;
 }
 
+/*
+	numOfActivties: the number of actives required for the corresponding LTL Rule,
+	ruleNum: the number of LTL Rules,
+	This function is used to receive the activitives.
+*/
 function createInputAt(numOfActivties, place, ruleNum) {
 	for (let index = 0; index < numOfActivties; index++) {
 		let chr = String.fromCharCode(65 + index);
@@ -188,6 +199,7 @@ function createInputAt(numOfActivties, place, ruleNum) {
 		addRuleToBoard(array, numOfActivties);
 		showCom();
 		document.getElementById(ruleNum).style.display = "none";
+		document.getElementById("NumberOfRules").value = ruleNum;
 	};
 	document.getElementById(ruleNum).children[1].focus();
 
