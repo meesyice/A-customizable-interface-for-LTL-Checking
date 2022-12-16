@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  /* min-width: 496px; */
   background-color: hsl(34, 78%, 91%);
   text-align: center;
   width: 100%;
@@ -22,7 +23,6 @@ header {
   font-family: 'Courier New', Courier, monospace;
   background-color: #000000;
   padding: 20px;
-
   margin-bottom: 5%;
   text-align: center;
 
@@ -36,6 +36,8 @@ header h1 {
 input {
   cursor: pointer !important;
 }
+
+
 
 .file {
   font-size: 18px;
@@ -58,18 +60,7 @@ input {
 
 
 
-.filters {
-  background-color: hsl(34, 78%, 89%);
-  border-radius: 15px;
-  margin: 0px 10px;
-  text-align: justify;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.627);
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 10px 10px;
-  border: .1px solid;
 
-  display: inline-block;
-}
 
 .filters h3 {
   padding-bottom: 15px;
@@ -77,29 +68,39 @@ input {
   border-radius: 15px;
 }
 
-label:hover {
+.option {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.627);
+  padding: 7px;
+  border-radius: 15px;
+  background-color: hsl(34, 89%, 82%);
+  margin: 5px;
+  font-size: 17px;
   cursor: pointer;
-  color: hsl(34, 83%, 47%);
 }
 
 
 
-.boton {
+
+
+.start {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.627);
   margin-top: 40px;
   padding: 10px 50px;
   border-radius: 15px;
   background-color: hsl(34, 78%, 87%);
-  margin-bottom: 100px;
+  margin-bottom: 120px;
   font-size: 20px;
   cursor: pointer;
+}
+span{
+  text-decoration: underline;
 }
 
 form {
   text-align: center;
 }
 
-.boton:hover {
+.start:hover {
   color: hsl(33, 95%, 51%);
   background-color: #333;
 
@@ -107,7 +108,7 @@ form {
 
 .hovertext {
   position: relative;
-  border-bottom: 1px dotted black;
+  
 }
 
 .hovertext:before {
@@ -147,25 +148,26 @@ form {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.627);
 }
 
+.button {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.627);
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: hsl(33, 76%, 76%);
+  margin-left: 20px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+
+
+
+
+.activtyFeld,
+.filters,
+.board,
+.andOr,
 .composition {
-  margin-top: 130px;
-  width: 170px;
-  padding-bottom: 80px;
-  position: relative;
-  bottom: 70px;
-}
-
-.composition h3 {
-  padding-bottom: 45px;
-  position: relative;
-  left: 15px;
-}
-
-.composition label {
-  padding-left: 0px;
-}
-
-.activtyFeld {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.627);
   display: inline-block;
   background-color: hsl(34, 78%, 89%);
@@ -176,7 +178,30 @@ form {
   margin-bottom: 10px;
   margin-right: 10px;
   margin-top: 50px;
+  max-width: 900px;
+  min-width: 300px;
+  font-weight: bold;
 }
+
+.board p {
+  font-size: 20px;
+  text-align: center;
+  margin: 5px;
+  display: inline-block;
+}
+
+.board h1 {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.board{
+  font-size: 20px;
+}
+
+.composition {
+  display: none;
+}
+
 
 
 footer {

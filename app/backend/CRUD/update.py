@@ -1,22 +1,22 @@
-from flask import request
+import re, json
 from pm4py import write_xes, read_xes
 
-from app.backend.ltlcalls import apply_filter, choose_filter, AND, OR
-from app.backend.CRUD.read import readFiltersAndEvents
+from app.backend.CRUD.read import readLTLRulesAndActivities
 
 """
 Apply LTL rules to process the file and overwrite the original file with the processed file
 """    
 def writeFile(file_path):
-    composition = request.form['andOr']
-    match composition:
-        case 'none':
-            filterd_log = apply_filter(read_xes(file_path), 
-                choose_filter(request.form['LTL_rule_1']), request.form.getlist('activitiesOfThefirstRule'))
-        case 'and':
-            filters, events = readFiltersAndEvents()
-            filterd_log = AND(read_xes(file_path), filters, events)
-        case 'or':
-            filters, events = readFiltersAndEvents()
-            filterd_log = OR(read_xes(file_path), filters, events)
-    write_xes(filterd_log, file_path)
+    # get LTL Rules and then we need parse them
+    rules, activities = readLTLRulesAndActivities()
+    json_file = saveAsJSON(activities)
+    print(json_file)
+    
+
+def saveAsJSON(activities:list):
+    # rules = re.split('LTL_And|LTL_Or', rules.replace('(','').replace(')','').replace(' ',''))
+    res = dict()
+    for index in range(len(activities)):
+        # res[rules[index]] = activities[index]
+        res[str(index)] = activities[index]
+    return json.dumps(res)
