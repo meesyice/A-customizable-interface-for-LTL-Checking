@@ -263,6 +263,8 @@ backBtn.addEventListener("click", () => {
 		ruleNum--;
 	}
 	if (ruleNum < 1 && result.length == 0) {
+		textBoard = ["<h1>Your input is:</h1>"];
+		board.innerHTML = "<h1>Your input is:</h1>";
 		backBtn.disabled = true;
 	}
 });
