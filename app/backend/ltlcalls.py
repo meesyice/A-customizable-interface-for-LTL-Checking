@@ -1,7 +1,7 @@
 import pandas as pd
 import pm4py.algo.filtering.log.ltl as ltl
 from enum import Enum
-from pm4py import convert_to_dataframe
+from pm4py import convert_to_dataframe, read_xes
 
 """
 Enum of all LTL rules provided by pm4py.
@@ -122,20 +122,60 @@ We return the intersection of the data frames after the filtering happened and w
 def AND(file, filter: LTL_Rule, events: list[str]):
     apply_filter(file, filter, events)
 
-
-
 def parse_mod_ltl(str_LTL_Rule: str):
     parsed_LTL_Rule = []
+    rule_counter = 0
     for subrule in str_LTL_Rule.split(" "):
         if subrule in ["LTL_LB", "LTL_RB"]:
             parsed_LTL_Rule.append(choose_Bracket(subrule))
         elif subrule in ["LTL_And", "LTL_Or"]:
             parsed_LTL_Rule.append(choose_combiner(subrule))
         elif subrule in ["LTL_A_ev_B", "LTL_A_ev_B_ev_C", "LTL_A_ev_B_ev_C_ev_D", "LTL_A_nex_B_nex_C", "LTL_Four_Eyes_Principle", "LTL_Attr_Val_Diff_Persons"]:
+            rule_counter += 1
             parsed_LTL_Rule.append(choose_filter(subrule))
         else:
             continue
     return parsed_LTL_Rule
 
-def apply_rule(file, str_LTL_Rule: str, events: list[list[str]]):
-    pass
+def apply_rule(file, parsed_LTL_Rule, events: list[list[str]]):
+    len_events = len(events) - 1
+    rule_counter = 0
+    i = 0
+    for i in range(len(parsed_LTL_Rule)):
+        if parsed_LTL_Rule[i] is LTL_Bracket.Left:
+            i += 1
+            sub_LTL_Rule = []
+            sub_events = []
+            while parsed_LTL_Rule[i] != LTL_Bracket.Right:
+                sub_LTL_Rule.append(parsed_LTL_Rule[i])
+                if type(parsed_LTL_Rule[i]) is LTL_Rule:
+                    sub_events.append(events[rule_counter])
+                    rule_counter = (rule_counter + 1) % len_events
+                i += 1
+            print(parsed_LTL_Rule[i])
+            file = apply_rule(file, sub_LTL_Rule, sub_events)
+        elif parsed_LTL_Rule[i] is LTL_Bracket.Right:
+            continue
+        elif parsed_LTL_Rule[i] is LTL_Combiner.And:
+            print(len_events, rule_counter)
+            file = AND(file, parsed_LTL_Rule[i+1], events[rule_counter])
+            rule_counter = (rule_counter + 1) % len_events
+            i += 1
+        elif parsed_LTL_Rule[i] is LTL_Combiner.Or:
+            file = OR(file, parsed_LTL_Rule[i+1], events[rule_counter])
+            rule_counter = (rule_counter + 1) % len_events
+            i += 1
+        elif type(parsed_LTL_Rule[i]) is LTL_Rule:
+            file = apply_filter(file, parsed_LTL_Rule[i], events[rule_counter])
+            rule_counter = (rule_counter + 1) % len_events
+    return file
+
+file = read_xes("tests/data/running-example.xes")
+parsed_LTL_Rule = parse_mod_ltl("LTL_LB LTL_A_ev_B LTL_Or LTL_A_ev_B_ev_C LTL_And LTL_A_ev_B_ev_C_ev_D LTL_RB")
+events = [
+            ["register request", "check ticket"], 
+            ["decide", "pay compensation", "examine casually"], 
+            ["decide", "pay compensation", "examine casually", "reject request"]
+         ]
+
+print(apply_rule(file, parsed_LTL_Rule, events))
