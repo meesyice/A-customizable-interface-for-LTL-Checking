@@ -117,11 +117,7 @@ showRules = () => {
 allOption.forEach((element) => {
 	element.addEventListener("click", () => {
 		let buttonRule = element.innerText;
-		result.push(element.value);
 		backBtn.disabled = false;
-		insertText("txt1", element.value);
-
-		textra.value = result.join(" ");
 		// addRuleToBoard(buttonRule);
 		let rule = findNumOfActivties(buttonRule);
 		if (rule === 5) rule = 2;
@@ -138,15 +134,31 @@ allOption.forEach((element) => {
 				hideCom();
 			}
 		}
-		if (
-			element.classList.contains("bracts") ||
-			element.classList.contains("or")
-		) {
+		if (element.classList.contains("or")) {
 			textBoard.push(buttonRule);
 			board.innerHTML = textBoard.join(" ");
-			if (buttonRule == "(") bractsNum++;
-			if (buttonRule == ")") bractsNum--;
 		}
+		if (element.classList.contains("bracts")) {
+			if (buttonRule == "(") {
+				bractsNum++;
+				textBoard.push(buttonRule);
+				board.innerHTML = textBoard.join(" ");
+			}else if (buttonRule == ")" && bractsNum > 0) {
+				bractsNum--;
+				textBoard.push(buttonRule);
+				board.innerHTML = textBoard.join(" ");
+			} else {
+				swal(
+					"check brackets!",
+					`you have to open " ( " frist`,
+					"warning"
+				);
+				return;
+			}
+		}
+		result.push(element.value);
+		insertText("txt1", element.value);
+		textra.value = result.join(" ");
 	});
 });
 
@@ -241,6 +253,16 @@ restBn.addEventListener("click", () => {
 	textra.value = result.join(" ");
 });
 
+activtyfildsDisply = () => {
+	let hiden = true;
+
+	let activtyfilds = document.getElementsByClassName("activtyFeld");
+	for (let index = 0; index < activtyfilds.length; index++) {
+		if (activtyfilds[index].style.display !== "none") hiden = false;
+	}
+	return hiden;
+}
+
 let backBtn = document.getElementById("back");
 backBtn.addEventListener("click", () => {
 	let lastEntry = result[result.length - 1];
@@ -248,17 +270,24 @@ backBtn.addEventListener("click", () => {
 		deletLastEntry();
 		showCom();
 		hideRules();
-	} else if (lastEntry == ")") {
+	} else if (lastEntry == "LTL_RB") {
 		bractsNum++;
 		deletLastEntry();
-	} else if (lastEntry == "(") {
+	} else if (lastEntry == "LTL_LB") {
 		bractsNum--;
 		deletLastEntry();
-	} else {
+	} else if (activtyfildsDisply()) {
 		hideCom();
 		showRules();
 		deletLastEntry();
-
+		document.getElementById(ruleNum).remove();
+		ruleNum--;
+	} else {
+		hideCom();
+		showRules();
+		result.pop();
+		board.innerHTML = textBoard.join(" ");
+		textra.value = result.join(" ");
 		document.getElementById(ruleNum).remove();
 		ruleNum--;
 	}
@@ -291,9 +320,22 @@ startBtn.addEventListener("click", (event) => {
 		swal("check brackets!", `you have ${-bractsNum} " ) " too many`, "warning");
 		event.preventDefault();
 	}
-	let lastEntry = result[result.length - 1];
+	let lastEntry = lastNoneBractsElment();
 	if (lastEntry == "LTL_Or" || lastEntry == "LTL_And") {
 		swal("check input!", "you have to choose another activity", "warning");
 		event.preventDefault();
 	}
 });
+
+function lastNoneBractsElment() {
+	let copy = result.map((x) => x);
+	let lastEntry = copy[copy.length - 1];
+	while (lastEntry == "LTL_RB" || lastEntry == "LTL_LB") {
+		copy.pop();
+		lastEntry = copy[copy.length - 1];
+	}
+	return lastEntry;
+	
+}
+
+

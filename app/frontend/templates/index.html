@@ -20,104 +20,100 @@
   </header>
 
   <main>
-<form action="/upload" method="post" enctype="multipart/form-data">
-  <section class="file">
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <section class="file">
 
-    <label for="myfile">Drop a xes file here or</label>
-    <input required id="myfile" name="datei" type="file" size="50" accept=".xes">
-  </section>
-  <div id="s">
-    <section class="filters">
-      <h3>Select a LTL rule:</h3>
-      <button type="button" class="option bracts" value="(">(</button>
+        <label for="myfile">Drop a xes file here or</label>
+        <input required id="myfile" name="datei" type="file" size="50" accept=".xes">
+      </section>
+      <div id="s">
+        <section class="filters">
+          <h3>Select a LTL rule:</h3>
+          <button type="button" class="option bracts" value="LTL_LB">(</button>
 
-      <button type="button" class="option bracts" value=")">)</button>
+          <button type="button" class="option bracts" value="LTL_RB">)</button>
 
-      <button type="button" class="option rule hovertext" value="LTL_A_ev_B"
-        data-hover="Applies the A eventually B rule,
+          <button type="button" class="option rule hovertext" value="LTL_A_ev_B"
+            data-hover="Applies the A eventually B rule,
               finding the cases in which an event with activity A was followed in the future by an event with activity B.">A eventually B</button>
 
-      <button type="button" class="option rule hovertext" value="LTL_A_ev_B_ev_C"
-        data-hover="Applies the A eventually B eventually C rule,
+          <button type="button" class="option rule hovertext" value="LTL_A_ev_B_ev_C"
+            data-hover="Applies the A eventually B eventually C rule,
               finding the cases in which an event with activity A was followed in the future by an event with activity B which was followed by an event with activity C.">A eventually B
-        eventually C</button>
+            eventually C</button>
 
-      <button type="button" class="option rule hovertext" value="LTL_A_ev_B_ev_C_ev_D"
-        data-hover="Applies the A eventually B eventually C eventually D rule,
+          <button type="button" class="option rule hovertext" value="LTL_A_ev_B_ev_C_ev_D"
+            data-hover="Applies the A eventually B eventually C eventually D rule,
               finding the cases in which an event with activity A was followed in the future by an event with activity B which was followed by an event with activity C which was followed by an event with activity D.">A
-        eventually B eventually C eventually D</button>
+            eventually B eventually C eventually D</button>
 
-      <button type="button" class="option rule hovertext" value="LTL_Val_Diff_Person"
-        data-hover="Finds the process executions in which the activity A is repeated by different people.">Value
-        different persons</button>
+          <button type="button" class="option rule hovertext" value="LTL_Val_Diff_Person"
+            data-hover="Finds the process executions in which the activity A is repeated by different people.">Value
+            different persons</button>
 
-      <button type="button" class="option rule hovertext" value="LTL_Four_Eyes"
-        data-hover="Applies the four eyes principle on the activities A and B.">Four eyes principle</button>
+          <button type="button" class="option rule hovertext" value="LTL_Four_Eyes"
+            data-hover="Applies the four eyes principle on the activities A and B.">Four eyes principle</button>
 
-      <button type="button" class="option rule hovertext" value="LTL_A_nex_B_nex_C"
-        data-hover="Applies the A next B next C rule,
+          <button type="button" class="option rule hovertext" value="LTL_A_nex_B_nex_C"
+            data-hover="Applies the A next B next C rule,
               finding the cases in which an event with activity A was directly followed by an event with activity B which was directly followed by an event with activity C.">A next to B next to
-        C</button>
-    </section>
-    <br>
+            C</button>
+        </section>
+        <br>
 
-    <section class="composition">
-      <h3>Select And, Or:</h3>
-      <button type="button" class="option or" value="LTL_And">AND</button>
+        <section class="composition">
+          <h3>Select And, Or:</h3>
+          <button type="button" class="option or" value="LTL_And">AND</button>
 
-      <button type="button" class="option or" value="LTL_Or">OR</button>
+          <button type="button" class="option or" value="LTL_Or">OR</button>
 
-      <button type="button" class="option bracts" value="(">(</button>
+          <button type="button" class="option bracts" value="LTL_LB">(</button>
 
-      <button type="button" class="option bracts" value=")">)</button>
-
-
-    </section>
+          <button type="button" class="option bracts" value="LTL_RB">)</button>
 
 
-    <br>
-
-    <section class="board">
-      <h1>Your input is:</h1>
-    </section>
-    <button id="back" class="start" type="button" disabled="true">Back</button>
-
-  </div>
-  <section id="activtyFeld">
-
-  </section>
-
-  <button id="reset" class="start" type="button">Reset</button>
-  <br>
-
-  {% if isDebug %}
-  <label for="txt1"> Text</label>
-  <textarea id="txt1" name="LTL_Rules" required></textarea>
-  {% else %}
-  <label hidden for="txt1"> Text</label>
-  <textarea hidden id="txt1" name="LTL_Rules" required></textarea>
-  {% endif %}
-  <input hidden id="NumberOfRules" name="NumberOfRules">
+        </section>
 
 
-  <!-- <div class="activtyFeld" id="activtyFeld_2">
+        <br>
 
-    </div> -->
-  <br>
+        <section class="board">
+          <h1>Your input is:</h1>
+        </section>
+        <button id="back" class="start" type="button" disabled="true">Back</button>
 
-  <input id="start" class="start" type="submit" value="Start">
+      </div>
+      <section id="activtyFeld">
 
-</form>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="../static/javascript/choicelimit.js"></script>
+      </section>
 
-<footer>
-  <div class="container">
-    <p>&copy; Group_1 2022</p>
-  </div>
-</footer>
+      <button id="reset" class="start" type="button">Reset</button>
+      <br>
 
-</main>
+      {% if isDebug %}
+      <label for="txt1"> Text</label>
+      <textarea id="txt1" name="LTL_Rules" required></textarea>
+      {% else %}
+      <label hidden for="txt1"> Text</label>
+      <textarea hidden id="txt1" name="LTL_Rules" required></textarea>
+      {% endif %}
+      <input hidden id="NumberOfRules" name="NumberOfRules">
+
+      <br>
+
+      <input id="start" class="start" type="submit" value="Start">
+
+    </form>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../static/javascript/choicelimit.js"></script>
+
+    <footer>
+      <div class="container">
+        <p>&copy; Group_1 2022</p>
+      </div>
+    </footer>
+
+  </main>
 
 
 
