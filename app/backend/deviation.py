@@ -62,30 +62,3 @@ def variants(file):
     return result
 
 
-
-
-df1=read_xes('/Users/fares/github/A-customizable-interface-for-LTL-Checking/tests/data/roadtraffic.xes')
-#df1=read_xes('/Users/fares/github/A-customizable-interface-for-LTL-Checking/tests/data/receipt.xes')
-
-#df1= read_xes('tests/data/running-example.xes')
-# print('the whole log :')
-# print(convert_to_dataframe(df1))
-#df2=OR(df1,[LTL_Rule.A_ev_B,LTL_Rule.four_eye], [["Confirmation of receipt","T04 Determine confirmation of receipt"],
- #                                                       ["T02 Check confirmation of receipt","T04 Determine confirmation of receipt"] ]  ) 
-df2=OR(df1,[LTL_Rule.A_ev_B,LTL_Rule.four_eye], [["Create Fine","Send Fine"],
-                                                        ["Payment","TInsert Fine Notification"] ]  ) 
-#df2=OR(df1,[LTL_Rule.A_ev_B,LTL_Rule.four_eye], [["decide","examine thoroughly"],["reject request",None] ]  )
-
-print('These are the most common variants : ')
-print(convert_to_dataframe(variants(df1)))
-print('These are the first 3 deviating cases ')
-file=first_3_Deviating_Cases(df1,df2)
-print(file)
-#print(first_Deviating_Case(df1))
-#write_xes((variants(df1)),'exported3.xes')
-# print('THis is for k=1')
-# print(convert_to_dataframe(filter_variants_top_k(df1,1)))
-# print('This is for k=2')
-# print(convert_to_dataframe(filter_variants_top_k(df1,2)))
-# print('This is for k=3')
-# print(convert_to_dataframe(filter_variants_top_k(df1,3)))
