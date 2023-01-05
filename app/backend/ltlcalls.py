@@ -101,81 +101,159 @@ Events are represented as list of lists where list i correspond to filter i .
 Converting our log file to data frames allows us to use some useful preimplemented panda functions like drop_duplicates().
 We return the concatenation of the data frames after the filtering happened and we drop any duplicates.
 """
-def OR(file, filter: LTL_Rule, events: list[str]):
-    dataframes = [convert_to_dataframe(file), convert_to_dataframe(apply_filter(file, filter, events))]
-    
-    if len(dataframes[0]) == 0 and len(dataframes[1]) == 0:
-        return None
-    elif len(dataframes[0]) == 0:
+def OR(files):
+    dataframes = [convert_to_dataframe(files[0]),convert_to_dataframe(files[1])]
+    if len(dataframes[0]) == 0:
         return dataframes[1]
     elif len(dataframes[1]) == 0:
         return dataframes[0]
     else:
         return pd.concat(dataframes).drop_duplicates().reset_index(drop=True)
-
 """ 
 AND is a function that combine filtered logs by keeping the events that satisfy both filters. 
 Events are represented as list of lists where list i correspond to filter i .
 Converting our log file to data frames allows us to use some useful preimplemented panda functions like drop_duplicates().
 We return the intersection of the data frames after the filtering happened and we drop any duplicates.
 """
-def AND(file, filter: LTL_Rule, events: list[str]):
-    apply_filter(file, filter, events)
 
-def parse_mod_ltl(str_LTL_Rule: str):
-    parsed_LTL_Rule = []
-    rule_counter = 0
-    for subrule in str_LTL_Rule.split(" "):
-        if subrule in ["LTL_LB", "LTL_RB"]:
-            parsed_LTL_Rule.append(choose_Bracket(subrule))
-        elif subrule in ["LTL_And", "LTL_Or"]:
-            parsed_LTL_Rule.append(choose_combiner(subrule))
-        elif subrule in ["LTL_A_ev_B", "LTL_A_ev_B_ev_C", "LTL_A_ev_B_ev_C_ev_D", "LTL_A_nex_B_nex_C", "LTL_Four_Eyes_Principle", "LTL_Attr_Val_Diff_Persons"]:
-            rule_counter += 1
-            parsed_LTL_Rule.append(choose_filter(subrule))
+def AND(files):
+    dataframes = [convert_to_dataframe(files[0]),convert_to_dataframe(files[1])]
+    if len(dataframes[0]) == 0 or len(dataframes[1]) == 0:
+        return pd.DataFrame()
+    else:
+        return pd.merge(dataframes[0],dataframes[1], how='inner').drop_duplicates()
+
+
+
+def apply_rule(file, parsed_LTL_Rule, events):
+    st = []
+    for i in parsed_LTL_Rule:
+        if i.startswith('LTL_Rule_') :
+            st.append(apply_filter(file,choose_filter(i),events[i]))
+           
+        elif i == 'LTL_And':
+            op1 = st.pop()
+            op2 = st.pop()
+            st.append(AND([op1,op2]))
+        elif i == 'LTL_Or': 
+            op1 = st.pop()
+            op2 = st.pop()
+            st.append(OR([op1,op2]))   
+    return st.pop()
+
+# file = read_xes("tests/data/running-example.xes")
+# parsed_LTL_Rule = parse_mod_ltl("LTL_LB LTL_A_ev_B LTL_Or LTL_A_ev_B_ev_C LTL_And LTL_A_ev_B_ev_C_ev_D LTL_RB")
+# events = [
+#             ["register request", "check ticket"], 
+#             ["decide", "pay compensation", "examine casually"], 
+#             ["decide", "pay compensation", "examine casually", "reject request"]
+#          ]
+
+# print(apply_rule(file, parsed_LTL_Rule, events))
+
+
+class Conversion:
+ 
+    # Constructor to initialize the class variables
+    def __init__(self, capacity):
+        self.top = -1
+        self.capacity = capacity
+        # This array is used a stack
+        self.array = []
+        # Precedence setting
+        self.output = []
+        self.precedence = {'LTL_And': 1, 'LTL_Or': 1}
+ 
+    # check if the stack is empty
+    def isEmpty(self):
+        return True if self.top == -1 else False
+ 
+    # Return the value of the top of the stack
+    def peek(self):
+        return self.array[-1]
+ 
+    # Pop the element from the stack
+    def pop(self):
+        if not self.isEmpty():
+            self.top -= 1
+            return self.array.pop()
         else:
-            continue
-    return parsed_LTL_Rule
+            return "$"
+ 
+    # Push the element to the stack
+    def push(self, op):
+        self.top += 1
+        self.array.append(op)
+ 
+    # A utility function to check is the given character
+    # is operand
+    def isOperand(self, ch):
+        return ch.isalpha()
+ 
+    # Check if the precedence of operator is strictly
+    # less than top of stack or not
+    def notGreater(self, i):
+        try:
+            a = self.precedence[i]
+            b = self.precedence[self.peek()]
+            return True if a <= b else False
+        except KeyError:
+            return False
+ 
+    # The main function that
+    # converts given infix expression
+    # to postfix expression
+    def infixToPostfix(self, exp):
+        res = exp.split()
+        # Iterate over the expression for conversion
+        for i in res:
+            # If the character is an operand,
+            # add it to output
+            if self.isOperand(i):
+                self.output.append(i+' ')
+ 
+            # If the character is an '(', push it to stack
+            elif i == 'LTL_LB':
+                self.push(i)
+ 
+            # If the scanned character is an ')', pop and
+            # output from the stack until and '(' is found
+            elif i == 'LTL_RB':
+                while((not self.isEmpty()) and
+                      self.peek() != 'LTL_LB'):
+                    a = self.pop()
+                    self.output.append(a+' ')
+                if (not self.isEmpty() and self.peek() != 'LTL_LB'):
+                    return -1
+                else:
+                    self.pop()
+ 
+            # An operator is encountered
+            else:
+                while(not self.isEmpty() and self.notGreater(i)):
+                    self.output.append(self.pop()+' ')
+                self.push(i)
+ 
+        # pop all the operator from the stack
+        while not self.isEmpty():
+            self.output.append(self.pop()+' ')
+ 
+        return ("".join(self.output).strip())
 
-def apply_rule(file, parsed_LTL_Rule, events: list[list[str]]):
-    len_events = len(events) - 1
-    rule_counter = 0
-    i = 0
-    for i in range(len(parsed_LTL_Rule)):
-        if parsed_LTL_Rule[i] is LTL_Bracket.Left:
-            i += 1
-            sub_LTL_Rule = []
-            sub_events = []
-            while parsed_LTL_Rule[i] != LTL_Bracket.Right:
-                sub_LTL_Rule.append(parsed_LTL_Rule[i])
-                if type(parsed_LTL_Rule[i]) is LTL_Rule:
-                    sub_events.append(events[rule_counter])
-                    rule_counter = (rule_counter + 1) % len_events
-                i += 1
-            print(parsed_LTL_Rule[i])
-            file = apply_rule(file, sub_LTL_Rule, sub_events)
-        elif parsed_LTL_Rule[i] is LTL_Bracket.Right:
-            continue
-        elif parsed_LTL_Rule[i] is LTL_Combiner.And:
-            print(len_events, rule_counter)
-            file = AND(file, parsed_LTL_Rule[i+1], events[rule_counter])
-            rule_counter = (rule_counter + 1) % len_events
-            i += 1
-        elif parsed_LTL_Rule[i] is LTL_Combiner.Or:
-            file = OR(file, parsed_LTL_Rule[i+1], events[rule_counter])
-            rule_counter = (rule_counter + 1) % len_events
-            i += 1
-        elif type(parsed_LTL_Rule[i]) is LTL_Rule:
-            file = apply_filter(file, parsed_LTL_Rule[i], events[rule_counter])
-            rule_counter = (rule_counter + 1) % len_events
-    return file
-
-file = read_xes("tests/data/running-example.xes")
-parsed_LTL_Rule = parse_mod_ltl("LTL_LB LTL_A_ev_B LTL_Or LTL_A_ev_B_ev_C LTL_And LTL_A_ev_B_ev_C_ev_D LTL_RB")
-events = [
-            ["register request", "check ticket"], 
-            ["decide", "pay compensation", "examine casually"], 
-            ["decide", "pay compensation", "examine casually", "reject request"]
-         ]
-
-print(apply_rule(file, parsed_LTL_Rule, events))
+ 
+# Driver's code
+if __name__ == '__main__':
+    exp = 'LTL_Rule_A_ev_B_ev_C_0 LTL_Or LTL_LB LTL_Rule_A_ev_B_0 LTL_And LTL_Rule_Attr_Val_Diff_Persons_0 LTL_RB LTL_Or LTL_Rule_A_ev_B_1'
+    events = {
+         'LTL_Rule_A_ev_B_ev_C_0' :["decide", "pay compensation", "examine casually"], 
+         'LTL_Rule_A_ev_B_0' : ["register request", "check ticket"],
+         'LTL_Rule_Attr_Val_Diff_Persons_0' : ["register request"],
+         'LTL_Rule_A_ev_B_1' : ["decide", "pay compensation"]
+         }
+    obj = Conversion(len(exp))
+ #LTL_OrLTL_LBcLTL_OrdLTL_OreLTL_RB
+    # Function call
+    file = read_xes('tests/data/running-example.xes')
+    var= obj.infixToPostfix(exp)
+    log =apply_rule(file,var,events)
+    print(convert_to_dataframe(log))
