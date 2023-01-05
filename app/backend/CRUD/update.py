@@ -9,4 +9,4 @@ Apply LTL rules to process the file and overwrite the original file with the pro
 def writeFile(file_path):
     # get LTL Rules and then we need parse them
     rules, activities = readLTLRulesAndActivities()
-    
+    print(rules, '\n', activities)
