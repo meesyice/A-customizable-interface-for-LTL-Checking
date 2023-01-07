@@ -2,7 +2,7 @@ from typing import Union
 from flask import request
 
 rule_names = ["LTL_Rule_A_ev_B", "LTL_Rule_A_ev_B_ev_C", "LTL_Rule_A_ev_B_ev_C_ev_D",
-               "LTL_Rule_Val_Diff_Person", "LTL_Rule_Four_Eyes", "LTL_Rule_A_nex_B_nex_C"]
+               "LTL_Rule_Attr_Val_Diff_Persons", "LTL_Rule_Four_Eyes_Principle", "LTL_Rule_A_nex_B_nex_C"]
 
 """
 When we use more than one LTL rule, we use this function to get the LTL rules 
@@ -16,13 +16,13 @@ def readLTLRulesAndActivities() -> Union[str, dict]:
         activities.append(request.form.getlist(rule))
     expr = changeExpr(request.form['LTL_Rules'])
     dict_data = {removeAllOperator(expr)[i] : activities[i] for i in range(len(activities))}
-    return ' '.join(expr), dict_data
+    return ' '.join(expr).replace('LTL_And', '-').replace('LTL_Or', '+').replace('LTL_RB',')').replace('LTL_LB','('), dict_data
 
 """
 remove operators from our expression
 """
 def removeAllOperator(expr):
-    return [value for value in expr if value != 'LTL_And' and value != 'LTL_Or']
+    return [value for value in expr if value != 'LTL_And' and value != 'LTL_Or' and value != 'LTL_LB' and value != 'LTL_RB']
 
 """
 Add numbers to each ltl rule
