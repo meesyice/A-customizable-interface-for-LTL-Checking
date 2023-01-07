@@ -4,7 +4,6 @@ import re
 import pm4py.algo.filtering.log.ltl as ltl
 from enum import Enum
 from pm4py import convert_to_dataframe , read_xes , filter_variants_top_k 
-from ltlcalls import OR , AND , LTL_Rule
 
 """
 This function returns the deviated log file
