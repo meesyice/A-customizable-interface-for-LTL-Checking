@@ -35,6 +35,7 @@ def download():
     def delete(response):
         try:
             os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'result.xes'))
+            os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'input.xes'))
         except PermissionError as error:
             print(error)
         return response
