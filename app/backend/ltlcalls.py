@@ -1,8 +1,7 @@
 import pandas as pd
 import pm4py.algo.filtering.log.ltl as ltl
 from enum import Enum
-from pm4py import convert_to_dataframe, read_xes
-
+from pm4py import convert_to_dataframe
 """
 Enum of all LTL rules provided by pm4py.
 """
@@ -162,7 +161,7 @@ class Conversion:
         self.array = []
         # Precedence setting
         self.output = []
-        self.precedence = {'LTL_And': 1, 'LTL_Or': 1}
+        self.precedence = {'+': 1, '-': 1}
  
     # check if the stack is empty
     def isEmpty(self):
@@ -188,7 +187,7 @@ class Conversion:
     # A utility function to check is the given character
     # is operand
     def isOperand(self, ch):
-        return ch.isalpha()
+        return '-' not in ch and '+' not in ch and '(' not in ch and ')' not in ch
  
     # Check if the precedence of operator is strictly
     # less than top of stack or not
@@ -204,26 +203,26 @@ class Conversion:
     # converts given infix expression
     # to postfix expression
     def infixToPostfix(self, exp):
-        res = exp.split()
+ 
         # Iterate over the expression for conversion
-        for i in res:
+        for i in exp:
             # If the character is an operand,
             # add it to output
             if self.isOperand(i):
-                self.output.append(i+' ')
+                self.output.append(i)
  
             # If the character is an '(', push it to stack
-            elif i == 'LTL_LB':
+            elif i == '(':
                 self.push(i)
  
             # If the scanned character is an ')', pop and
             # output from the stack until and '(' is found
-            elif i == 'LTL_RB':
+            elif i == ')':
                 while((not self.isEmpty()) and
-                      self.peek() != 'LTL_LB'):
+                      self.peek() != '('):
                     a = self.pop()
-                    self.output.append(a+' ')
-                if (not self.isEmpty() and self.peek() != 'LTL_LB'):
+                    self.output.append(a)
+                if (not self.isEmpty() and self.peek() != '('):
                     return -1
                 else:
                     self.pop()
@@ -231,36 +230,12 @@ class Conversion:
             # An operator is encountered
             else:
                 while(not self.isEmpty() and self.notGreater(i)):
-                    self.output.append(self.pop()+' ')
+                    self.output.append(self.pop())
                 self.push(i)
  
         # pop all the operator from the stack
         while not self.isEmpty():
-            self.output.append(self.pop()+' ')
+            self.output.append(self.pop())
  
-        return ("".join(self.output).strip())
-
+        return "".join(self.output)
  
-# Driver's code
-if __name__ == '__main__':
-    exp = 'LTL_Rule_A_ev_B_ev_C_0 LTL_Or LTL_LB LTL_Rule_A_ev_B_0 LTL_And LTL_Rule_Attr_Val_Diff_Persons_0 LTL_RB LTL_Or LTL_Rule_A_ev_B_1'
-    events = {
-         'LTL_Rule_A_ev_B_ev_C_0' :["decide", "pay compensation", "examine casually"], 
-         'LTL_Rule_A_ev_B_0' : ["register request", "check ticket"],
-         'LTL_Rule_Attr_Val_Diff_Persons_0' : ["register request"],
-         'LTL_Rule_A_ev_B_1' : ["decide", "pay compensation"]
-         }
-    obj = Conversion(len(exp))
-    
-    
- #LTL_OrLTL_LBcLTL_OrdLTL_OreLTL_RB
-    # Function call
-    file = read_xes('tests/data/running-example.xes')
-    var= obj.infixToPostfix(exp)
-    # print(var)
-    # st = []
-    # for i in var:
-    #     if i.startswith('LTL_Rule_') :
-    #         st.append(apply_filter(file,choose_filter(i),events[i]))
-    # log =apply_rule(file,var.split(),events)
-    # print(convert_to_dataframe(log))
