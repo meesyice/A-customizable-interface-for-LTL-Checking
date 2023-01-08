@@ -63,13 +63,3 @@ def variants(file):
         frames.append(first_Deviating_Case( convert_to_dataframe(diff(filter_variants_top_k(file,x+1),filter_variants_top_k(file,x)))))
     result = pd.concat(frames).loc[:,['concept:name']]
     return result
-
-
-expr = 'LTL_Rule_A_ev_B_0 + LTL_Rule_A_ev_B_ev_C_0 - ( LTL_Rule_Attr_Val_Diff_Persons_0 + LTL_Rule_Four_Eyes_Principle_0 ) - LTL_Rule_A_nex_B_nex_C_0'
-expr = Conversion(len(expr)).infixToPostfix(expr).replace('-',' LTL_And ').replace('+', ' LTL_Or ')
-activities = {'LTL_Rule_A_ev_B_0': ['decide', 'check ticket'], 'LTL_Rule_A_ev_B_ev_C_0': ['check ticket', 'check ticket', 'check ticket'], 'LTL_Rule_Attr_Val_Diff_Persons_0': ['examine casually'], 'LTL_Rule_Four_Eyes_Principle_0': ['check ticket', 'check ticket'], 'LTL_Rule_A_nex_B_nex_C_0': ['pay compensation', 'examine casually', 'register request']}
-input_log = read_xes('tests/data/running-example.xes')    
-print(convert_to_dataframe(input_log))
-filtered_log = convert_to_dataframe( apply_rule(input_log, expr.split(), activities) )
-print(filtered_log)
-print(convert_to_dataframe(first_3_Deviating_Cases(input_log, filtered_log)) )
