@@ -1,3 +1,6 @@
+from glob import glob
+from io import BytesIO
+from zipfile import ZipFile
 from app import app
 from flask import render_template, request, send_file, after_this_request, redirect
 import os
@@ -35,9 +38,18 @@ def download():
     def delete(response):
         try:
             os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'result.xes'))
-            os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'input.xes'))
+            os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'deviating_cases.xes'))
+            os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'variants.xes'))
         except PermissionError as error:
             print(error)
         return response
-    return send_file(os.path.join('imported_files', 'result.xes'))
+    stream = BytesIO()
+    os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'input.xes'))
+    with ZipFile(stream, 'w') as zf:
+        for file in glob(os.path.join(app.config['UPLOAD_DIRECTORY'], '*.xes')):
+            zf.write(file, os.path.basename(file))
+    stream.seek(0)
+    return send_file(stream,
+        as_attachment=True,
+        download_name='archive.zip')
 
