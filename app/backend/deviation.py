@@ -4,13 +4,13 @@ import re
 import pm4py.algo.filtering.log.ltl as ltl
 from enum import Enum
 from pm4py import convert_to_dataframe , read_xes , filter_variants_top_k 
-from ltlcalls import apply_rule , Conversion
+from app.backend.ltlcalls import apply_rule , Conversion
 
 """
 This function returns the deviated log file
 """
 def diff(df1,df2):
-    if df2.empty :
+    if convert_to_dataframe(df2).empty:
         return df1
     else :
         return  pd.merge(convert_to_dataframe(df1),convert_to_dataframe(df2),indicator = True, how='left').loc[lambda x : x['_merge']!='both']
