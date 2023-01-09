@@ -338,4 +338,8 @@ function lastNoneBractsElment() {
 	
 }
 
+let download_button = document.getElementById("result");
+download_button.addEventListener("click", () => {
+	download_button.style.display = "none";
+});
 
