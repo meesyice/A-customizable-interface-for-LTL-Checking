@@ -102,11 +102,22 @@
       <br>
 
       <input id="start" class="start" type="submit" value="Start">
-
     </form>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../static/javascript/choicelimit.js"></script>
-
+    {% if not cases.empty %}
+    <form action="/result" method="post">
+      <input id="result" class="start" type="submit" value="Download Result">
+    </form>
+    <section class="filters">
+      <h3>Deviating Cases</h3>
+      {{cases|safe}}
+    </section>
+    <section class="filters">
+      <h3>Variants</h3>
+      {{var|safe}}
+    </section>
+    {% endif %}
     <footer>
       <div class="container">
         <p>&copy; Group_1 2022</p>

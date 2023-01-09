@@ -4,6 +4,7 @@ from zipfile import ZipFile
 from app import app
 from flask import render_template, request, send_file, after_this_request, redirect
 import os
+import pandas as pd
 
 from app.backend.CRUD.create import saveFile
 from app.backend.CRUD.update import writeFile
@@ -12,7 +13,8 @@ from app.backend.CRUD.update import writeFile
 @app.route('/index')
 def index():
     files = os.listdir(app.config['UPLOAD_DIRECTORY'])
-    return render_template('index.html', files = files, isDebug = app.debug)
+    cases = pd.DataFrame()
+    return render_template('index.html', files = files, cases = cases, isDebug = app.debug)
 
 
 
@@ -25,8 +27,8 @@ def upload():
     if not file_path:
         return redirect('/')
     else:
-        writeFile(file_path)
-    return redirect('/result', code=307)
+        cases, var = writeFile(file_path)
+    return render_template('index.html', cases = cases, var = var, isDebug = app.debug)
 
 
 """

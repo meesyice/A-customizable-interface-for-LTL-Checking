@@ -24,4 +24,5 @@ def writeFile(file_path):
     var_path = os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename('variants.xes'))
     with open(var_path, 'w') as f:
         f.write(var.to_json())
+    return deviating_cases.to_html() , var.to_html()
     
