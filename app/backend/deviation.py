@@ -34,15 +34,18 @@ def first_3_Deviating_Cases(df1,df2):
 This function takes a deviated log file as an input and gives us only the first deviated case back
 """
 def first_Deviating_Case(file):
-    count=0 
-    xs=convert_to_dataframe(file)['case:concept:name'].values.tolist()
-    j = 0
-    for i in range(0,len(xs)):
-        if count < 1:
-            j = i
-        if i < len(xs)-1 and xs[i] != xs[i+1]:
-             count += 1
-    return convert_to_dataframe(file).iloc[:j+1]
+    if convert_to_dataframe(file).empty:
+        return convert_to_dataframe(file)
+    else:
+        count=0 
+        xs=convert_to_dataframe(file)['case:concept:name'].values.tolist()
+        j = 0
+        for i in range(0,len(xs)):
+            if count < 1:
+                j = i
+            if i < len(xs)-1 and xs[i] != xs[i+1]:
+                count += 1
+        return convert_to_dataframe(file).iloc[:j+1]
 
 """
 This function takes a log file as an input and gives us its most commun variants back
