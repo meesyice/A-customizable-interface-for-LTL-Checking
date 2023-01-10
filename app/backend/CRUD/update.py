@@ -21,5 +21,5 @@ def writeFile(file_path):
     deviating_cases = first_3_Deviating_Cases(input_log, filtered_log)
     var = variants(filtered_log).reset_index(drop=True)
     if '_merge' in deviating_cases.columns:
-        deviating_cases.drop(columns=['_merge'])
+       deviating_cases = deviating_cases.drop(columns=['_merge'])
     return deviating_cases.to_html() , var.to_html()
