@@ -4,7 +4,7 @@ import re
 import pm4py.algo.filtering.log.ltl as ltl
 from enum import Enum
 from pm4py import convert_to_dataframe , read_xes , filter_variants_top_k 
-from app.backend.ltlcalls import apply_rule , Conversion
+from app.backend.ltlcalls import LTL_Rule, apply_rule , Conversion
 
 """
 This function returns the deviated log file
@@ -54,7 +54,7 @@ def variants(file):
     k=3
     j=1
     frames = []
-    string = 'This is variant number 1'
+    string = 'This is variant number 1 :'
     df = pd.DataFrame([string], columns=['concept:name'])
     frames.append(df)
     frames.append(first_Deviating_Case(convert_to_dataframe(filter_variants_top_k(file,1))))
@@ -66,3 +66,14 @@ def variants(file):
         frames.append(first_Deviating_Case( convert_to_dataframe(diff(filter_variants_top_k(file,x+1),filter_variants_top_k(file,x)))))
     result = pd.concat(frames).loc[:,['concept:name']]
     return result
+
+# input_log = read_xes('/Users/fares/github/A-customizable-interface-for-LTL-Checking/tests/data/running-example.xes')
+# converter = Conversion(12)
+# rule = converter.infixToPostfix('LTL_Rule_A_ev_B')
+# filtered_log = apply_rule(input_log,rule,['register request','examine casually'])
+# print(convert_to_dataframe(filtered_log))
+# print('--------------------------------')
+# print(convert_to_dataframe(first_3_Deviating_Cases(input_log,filtered_log)))
+# print('--------------------------------')
+# print(variants(filtered_log))
+# print('--------------------------------')

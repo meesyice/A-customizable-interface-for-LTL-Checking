@@ -4,8 +4,12 @@ from app import app
 from werkzeug.utils import secure_filename
 from app.backend.CRUD.read import readLTLRulesAndActivities
 from app.backend.ltlcalls import Conversion, apply_rule
+<<<<<<< Updated upstream
 from app.backend.deviation import first_3_Deviating_Cases, variants
 import pandas as pd
+=======
+from app.backend.deviation import first_3_Deviating_Cases, variants , diff
+>>>>>>> Stashed changes
 
 """
 Apply LTL rules to process the file and overwrite the original file with the processed file
@@ -19,7 +23,20 @@ def writeFile(file_path):
     filtered_log = apply_rule(input_log, expr.split(), activities)
     write_xes(filtered_log, result_path)
     deviating_cases = first_3_Deviating_Cases(input_log, filtered_log)
+<<<<<<< Updated upstream
     var = variants(filtered_log).reset_index(drop=True)
     if '_merge' in deviating_cases.columns:
        deviating_cases = deviating_cases.drop(columns=['_merge'])
     return deviating_cases.to_html() , var.to_html()
+=======
+    write_xes(deviating_cases, deviating_cases_path)
+    deviating_file = diff(input_log,filtered_log)
+    var = variants(deviating_file).reset_index(drop=True)
+    #var = variants(filtered_log).reset_index(drop=True)
+
+    var_path = os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename('variants.xes'))
+    with open(var_path, 'w') as f:
+        f.write(var.to_json())
+    return deviating_cases.drop(columns=['_merge']).to_html() , var.to_html()
+    
+>>>>>>> Stashed changes
