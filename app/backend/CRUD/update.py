@@ -16,6 +16,7 @@ def writeFile(file_path):
     expr = Conversion(len(expr)).infixToPostfix(expr).replace('-',' LTL_And ').replace('+', ' LTL_Or ')
     result_path = os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename('result.xes'))
     input_log = read_xes(file_path)
+    os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'input.xes'))
     filtered_log = apply_rule(input_log, expr.split(), activities)
     write_xes(filtered_log, result_path)
     deviating_cases = first_3_Deviating_Cases(input_log, filtered_log)

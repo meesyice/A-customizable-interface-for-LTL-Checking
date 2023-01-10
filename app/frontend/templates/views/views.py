@@ -40,13 +40,10 @@ def download():
     def delete(response):
         try:
             os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'result.xes'))
-            os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'deviating_cases.xes'))
-            os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'variants.xes'))
         except PermissionError as error:
             print(error)
         return response
     stream = BytesIO()
-    os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'input.xes'))
     with ZipFile(stream, 'w') as zf:
         for file in glob(os.path.join(app.config['UPLOAD_DIRECTORY'], '*.xes')):
             zf.write(file, os.path.basename(file))
