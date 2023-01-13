@@ -4,7 +4,7 @@ import re
 import pm4py.algo.filtering.log.ltl as ltl
 from enum import Enum
 from pm4py import convert_to_dataframe , read_xes , filter_variants_top_k 
-from app.backend.ltlcalls import LTL_Rule, apply_rule , Conversion
+
 
 """
 This function returns the deviated log file
@@ -13,7 +13,8 @@ def diff(df1,df2):
     if convert_to_dataframe(df2).empty:
         return df1
     else :
-        return  pd.merge(convert_to_dataframe(df1),convert_to_dataframe(df2),indicator = True, how='left').loc[lambda x : x['_merge']!='both']
+        return convert_to_dataframe(df1).merge(convert_to_dataframe(df2), how='left',indicator = True).loc[lambda x : x['_merge']!='both']
+
 
 
 """
@@ -64,16 +65,7 @@ def variants(file):
         df = pd.DataFrame([string], columns=['concept:name'])
         frames.append(df)
         frames.append(first_Deviating_Case( convert_to_dataframe(diff(filter_variants_top_k(file,x+1),filter_variants_top_k(file,x)))))
+       
     result = pd.concat(frames).loc[:,['concept:name']]
     return result
 
-# input_log = read_xes('/Users/fares/github/A-customizable-interface-for-LTL-Checking/tests/data/running-example.xes')
-# converter = Conversion(12)
-# rule = converter.infixToPostfix('LTL_Rule_A_ev_B')
-# filtered_log = apply_rule(input_log,rule,['register request','examine casually'])
-# print(convert_to_dataframe(filtered_log))
-# print('--------------------------------')
-# print(convert_to_dataframe(first_3_Deviating_Cases(input_log,filtered_log)))
-# print('--------------------------------')
-# print(variants(filtered_log))
-# print('--------------------------------')

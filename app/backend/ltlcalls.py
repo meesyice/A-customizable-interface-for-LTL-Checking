@@ -1,7 +1,8 @@
 import pandas as pd
 import pm4py.algo.filtering.log.ltl as ltl
 from enum import Enum
-from pm4py import convert_to_dataframe
+from pm4py import convert_to_dataframe , read_xes
+from app.backend.deviation import diff
 """
 Enum of all LTL rules provided by pm4py.
 """
@@ -141,14 +142,16 @@ def apply_rule(file, parsed_LTL_Rule, events):
     return st.pop()
 
 # file = read_xes("tests/data/running-example.xes")
-# parsed_LTL_Rule = parse_mod_ltl("LTL_LB LTL_A_ev_B LTL_Or LTL_A_ev_B_ev_C LTL_And LTL_A_ev_B_ev_C_ev_D LTL_RB")
+# parsed_LTL_Rule = ["LTL_LB LTL_A_ev_B LTL_Or LTL_A_ev_B_ev_C LTL_And LTL_A_ev_B_ev_C_ev_D LTL_RB"]
 # events = [
 #             ["register request", "check ticket"], 
 #             ["decide", "pay compensation", "examine casually"], 
 #             ["decide", "pay compensation", "examine casually", "reject request"]
 #          ]
 
-# print(apply_rule(file, parsed_LTL_Rule, events))
+# filtered_log=apply_rule(file, parsed_LTL_Rule, events)
+
+# print(diff(file,filtered_log))
 
 
 class Conversion:
