@@ -19,8 +19,6 @@ def writeFile(file_path):
     os.remove(os.path.join(app.config['UPLOAD_DIRECTORY'], 'input.xes'))
     filtered_log = apply_rule(input_log, expr.split(), activities)
     write_xes(filtered_log, result_path)
-    deviating_cases = first_3_Deviating_Cases(input_log, filtered_log)
+    deviating_cases = first_3_Deviating_Cases(input_log, filtered_log)[['concept:name','case:concept:name']]
     var = variants(filtered_log).reset_index(drop=True)
-    if '_merge' in deviating_cases.columns:
-       deviating_cases = deviating_cases.drop(columns=['_merge'])
     return deviating_cases.to_html() , var.to_html()
