@@ -13,7 +13,7 @@ def saveFile(file):
         flash("Please upload a XES file")
         return ""
     else:
-        file_path = os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename('result.xes'))
+        file_path = os.path.join(app.config['UPLOAD_DIRECTORY'], secure_filename('input.xes'))
         file.save(file_path)
         return file_path
     

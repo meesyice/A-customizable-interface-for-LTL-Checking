@@ -33,28 +33,28 @@
 
           <button type="button" class="option bracts" value="LTL_RB">)</button>
 
-          <button type="button" class="option rule hovertext" value="LTL_A_ev_B"
+          <button type="button" class="option rule hovertext" value="LTL_Rule_A_ev_B"
             data-hover="Applies the A eventually B rule,
               finding the cases in which an event with activity A was followed in the future by an event with activity B.">A eventually B</button>
 
-          <button type="button" class="option rule hovertext" value="LTL_A_ev_B_ev_C"
+          <button type="button" class="option rule hovertext" value="LTL_Rule_A_ev_B_ev_C"
             data-hover="Applies the A eventually B eventually C rule,
               finding the cases in which an event with activity A was followed in the future by an event with activity B which was followed by an event with activity C.">A eventually B
             eventually C</button>
 
-          <button type="button" class="option rule hovertext" value="LTL_A_ev_B_ev_C_ev_D"
+          <button type="button" class="option rule hovertext" value="LTL_Rule_A_ev_B_ev_C_ev_D"
             data-hover="Applies the A eventually B eventually C eventually D rule,
               finding the cases in which an event with activity A was followed in the future by an event with activity B which was followed by an event with activity C which was followed by an event with activity D.">A
             eventually B eventually C eventually D</button>
 
-          <button type="button" class="option rule hovertext" value="LTL_Val_Diff_Person"
+          <button type="button" class="option rule hovertext" value="LTL_Rule_Attr_Val_Diff_Persons"
             data-hover="Finds the process executions in which the activity A is repeated by different people.">Value
             different persons</button>
 
-          <button type="button" class="option rule hovertext" value="LTL_Four_Eyes"
+          <button type="button" class="option rule hovertext" value="LTL_Rule_Four_Eyes_Principle"
             data-hover="Applies the four eyes principle on the activities A and B.">Four eyes principle</button>
 
-          <button type="button" class="option rule hovertext" value="LTL_A_nex_B_nex_C"
+          <button type="button" class="option rule hovertext" value="LTL_Rule_A_nex_B_nex_C"
             data-hover="Applies the A next B next C rule,
               finding the cases in which an event with activity A was directly followed by an event with activity B which was directly followed by an event with activity C.">A next to B next to
             C</button>
@@ -102,11 +102,22 @@
       <br>
 
       <input id="start" class="start" type="submit" value="Start">
-
     </form>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../static/javascript/choicelimit.js"></script>
-
+    {% if not cases.empty %}
+    <form action="/result" method="post">
+      <input id="result" class="start" type="submit" value="Download Result">
+    </form>
+    <section class="filters">
+      <h3>First Three Deviating Cases</h3>
+      {{cases|safe}}
+    </section>
+    <section class="filters">
+      <h3>First Three Variants</h3>
+      {{var|safe}}
+    </section>
+    {% endif %}
     <footer>
       <div class="container">
         <p>&copy; Group_1 2022</p>

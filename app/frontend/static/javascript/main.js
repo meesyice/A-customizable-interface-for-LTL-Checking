@@ -7,6 +7,7 @@ let ruleNum = 0;
 let textBoard = ["<h1>Your input is:</h1>"];
 let result = [];
 let bractsNum = 0;
+let lastNextButton;
 // ES6 Modules or TypeScript
 
 function insertText(elemID, text) {
@@ -221,7 +222,7 @@ function createInputAt(numOfActivties, place, ruleNum) {
 function stateHandle() {
 	let array = document.getElementsByName(this.name);
 	let btn = this.parentElement.lastElementChild;
-
+	lastNextButton = btn;
 	let empty = false;
 	for (let index = 0; index < array.length; index++) {
 		if (array[index].value === "") {
@@ -306,6 +307,8 @@ function deletLastEntry() {
 
 let startBtn = document.getElementById("start");
 startBtn.addEventListener("click", (event) => {
+	let lastElemStat = document.getElementById(ruleNum).style.display;
+	if (lastElemStat !== "none") lastNextButton.click();
 	let text = document.getElementById("txt1").value;
 	if (text.length < 7) {
 		swal("error!", "You have to choose an activity first", "error");
@@ -338,4 +341,8 @@ function lastNoneBractsElment() {
 	
 }
 
+let download_button = document.getElementById("result");
+download_button.addEventListener("click", () => {
+	download_button.style.display = "none";
+});
 
