@@ -16,7 +16,7 @@ fonttools==4.37.4
 graphviz==0.20.1
 idna==3.4
 intervaltree==3.1.0
-ipython==8.5.0
+ipython==8.10.0
 itsdangerous==2.1.2
 jedi==0.18.1
 Jinja2==3.1.2
