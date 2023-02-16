@@ -57,4 +57,4 @@ tqdm==4.64.1
 traitlets==5.5.0
 urllib3==1.26.12
 wcwidth==0.2.5
-Werkzeug==2.2.2
+Werkzeug==2.2.3
